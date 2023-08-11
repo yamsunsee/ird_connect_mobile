@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ird_connect/pages/index.dart';
+import 'package:ird_connect/utils/index.dart';
 
 class AppCard extends StatelessWidget {
   const AppCard({super.key, required this.item});
@@ -14,6 +15,7 @@ class AppCard extends StatelessWidget {
             MaterialPageRoute(builder: (context) => AppDetails(item: item)));
       },
       child: Card(
+        color: Colors.indigo.shade50,
         child: Center(
           child: Padding(
               padding: const EdgeInsets.all(20),
@@ -25,8 +27,7 @@ class AppCard extends StatelessWidget {
                 Text(
                   item['title'],
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                  style: Styles.h6p,
                 ),
               ])),
         ),

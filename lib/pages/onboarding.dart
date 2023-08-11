@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ird_connect/pages/index.dart';
-import 'package:ird_connect/utils/constants.dart';
+import 'package:ird_connect/utils/index.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Onboarding extends StatefulWidget {
@@ -34,11 +34,7 @@ class _OnboardingState extends State<Onboarding> {
                       children: [
                         Text(
                           page['title'].toUpperCase(),
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 4,
-                          ),
+                          style: Styles.h1p,
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(
@@ -50,8 +46,7 @@ class _OnboardingState extends State<Onboarding> {
                         ),
                         Text(
                           page['descriptions'],
-                          style: const TextStyle(
-                              fontSize: 16, fontStyle: FontStyle.italic),
+                          style: Styles.p,
                           textAlign: TextAlign.center,
                         ),
                       ]),
@@ -72,7 +67,10 @@ class _OnboardingState extends State<Onboarding> {
                   SmoothPageIndicator(
                     controller: _controller,
                     count: 3,
-                    effect: const JumpingDotEffect(),
+                    effect: WormEffect(
+                      dotColor: Colors.grey.shade300,
+                      activeDotColor: Colors.indigo,
+                    ),
                     onDotClicked: (index) {
                       _controller.animateToPage(index,
                           duration: const Duration(milliseconds: 500),
