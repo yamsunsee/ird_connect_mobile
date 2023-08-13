@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ird_connect/pages/index.dart';
-import 'package:ird_connect/utils/index.dart';
+import 'package:ird_connect/configs/index.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Onboarding extends StatefulWidget {
@@ -26,30 +25,28 @@ class _OnboardingState extends State<Onboarding> {
                   _isLastPage = (index == 2);
                 });
               },
-              children: onboardingPages.map((page) {
+              children: VariablesConfig.onboardingPages.map((page) {
                 return Padding(
                   padding: const EdgeInsets.all(32.0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          page['title'].toUpperCase(),
-                          style: Styles.h1p,
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(
-                          height: 32.0,
-                        ),
-                        Image.asset('assets/images/${page['image']}'),
-                        const SizedBox(
-                          height: 32.0,
-                        ),
-                        Text(
-                          page['descriptions'],
-                          style: Styles.p,
-                          textAlign: TextAlign.center,
-                        ),
-                      ]),
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Text(
+                      page['title'].toUpperCase(),
+                      style: StylesConfig.getTextStyle('h2'),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    Image.asset('assets/images/${page['image']}'),
+                    const SizedBox(
+                      height: 32.0,
+                    ),
+                    Text(
+                      page['descriptions'],
+                      style: StylesConfig.getTextStyleWithColor(context, 'p', 'paragraph'),
+                      textAlign: TextAlign.center,
+                    ),
+                  ]),
                 );
               }).toList()),
           Container(
@@ -60,8 +57,7 @@ class _OnboardingState extends State<Onboarding> {
                   TextButton(
                       onPressed: () {
                         _controller.animateToPage(2,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeOut);
+                            duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
                       },
                       child: const Text('SKIP')),
                   SmoothPageIndicator(
@@ -73,24 +69,18 @@ class _OnboardingState extends State<Onboarding> {
                     ),
                     onDotClicked: (index) {
                       _controller.animateToPage(index,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeOut);
+                          duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
                     },
                   ),
                   _isLastPage
                       ? TextButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Home()));
+                            Navigator.pushReplacementNamed(context, RoutesConfig.home);
                           },
                           child: const Text('DONE'))
                       : TextButton(
                           onPressed: () {
-                            _controller.nextPage(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeOut);
+                            _controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
                           },
                           child: const Text('NEXT')),
                 ],

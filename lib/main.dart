@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:ird_connect/pages/index.dart';
+import 'package:provider/provider.dart';
+import 'package:ird_connect/configs/index.dart';
+import 'package:ird_connect/providers/index.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
-bool isDark = false;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'iRD Connect',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.indigo,
-        fontFamily: 'Oswald',
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => ThemeProvider())],
+      child: Consumer<ThemeProvider>(
+        builder: (context, theme, child) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'iRD Connect',
+          themeMode: theme.mode,
+          theme: ThemesConfig.lightMode,
+          darkTheme: ThemesConfig.darkMode,
+          initialRoute: RoutesConfig.onboarding,
+          routes: RoutesConfig.initial(context),
+        ),
       ),
-      home: const Onboarding(),
     );
   }
 }

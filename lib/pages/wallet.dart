@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ird_connect/utils/index.dart';
+import 'package:ird_connect/configs/index.dart';
 
 class Wallet extends StatelessWidget {
   const Wallet({super.key});
@@ -7,7 +7,6 @@ class Wallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         title: const Text('My Wallet'),
         centerTitle: true,
@@ -16,14 +15,14 @@ class Wallet extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            const Text('Introduction', style: Styles.h5),
-            const Text(
+            Text('Introduction', style: StylesConfig.getTextStyle('h6')),
+            Text(
               'Includes balance, wallet status on iRD Connect.',
-              style: Styles.p,
+              style: StylesConfig.getTextStyle('p'),
             ),
-            const Text(
+            Text(
               'You can also change the name or id of the wallet according to your style.',
-              style: Styles.p,
+              style: StylesConfig.getTextStyle('p'),
             ),
             const SizedBox(height: 16.0),
             // const ListTile(
@@ -74,10 +73,7 @@ class Wallet extends StatelessWidget {
                     ListTile(
                       title: Text(
                         'Pham The Hien'.toUpperCase(),
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.w700),
+                        style: const TextStyle(color: Colors.white, fontSize: 24.0, fontWeight: FontWeight.w700),
                       ),
                       subtitle: const Text(
                         'Wallet Name',
@@ -88,8 +84,7 @@ class Wallet extends StatelessWidget {
                     const ListTile(
                       title: Text(
                         '94f353b6-9999-4a81-Ba09-C63fb5778d02',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w700),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                       ),
                       subtitle: Text(
                         'Card ID',
@@ -101,10 +96,7 @@ class Wallet extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ListTile(
-                            title: Text('Active',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700)),
+                            title: Text('Active', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                             subtitle: Text(
                               'Status',
                               style: TextStyle(color: Colors.white70),
@@ -113,10 +105,7 @@ class Wallet extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListTile(
-                            title: Text('Silver',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700)),
+                            title: Text('Silver', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                             subtitle: Text(
                               'Rank',
                               style: TextStyle(color: Colors.white70),
@@ -125,10 +114,7 @@ class Wallet extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListTile(
-                            title: Text('300',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700)),
+                            title: Text('300', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
                             subtitle: Text(
                               'Credits',
                               style: TextStyle(color: Colors.white70),
@@ -142,10 +128,10 @@ class Wallet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16.0),
-            const Text('Transactions', style: Styles.h5),
-            const Text(
+            Text('Transactions', style: StylesConfig.getTextStyle('h6')),
+            Text(
               'Including transactions on iRD Connect.',
-              style: Styles.p,
+              style: StylesConfig.getTextStyle('p'),
             ),
             const SizedBox(height: 16.0),
             const ListTile(

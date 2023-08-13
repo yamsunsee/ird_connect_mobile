@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ird_connect/pages/index.dart';
-import 'package:ird_connect/utils/index.dart';
+import 'package:ird_connect/configs/index.dart';
 
 class AppCard extends StatelessWidget {
   const AppCard({super.key, required this.item});
@@ -11,8 +10,7 @@ class AppCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => AppDetails(item: item)));
+        Navigator.pushNamed(context, RoutesConfig.details, arguments: item);
       },
       child: Card(
         color: Colors.indigo.shade50,
@@ -27,7 +25,7 @@ class AppCard extends StatelessWidget {
                 Text(
                   item['title'],
                   textAlign: TextAlign.center,
-                  style: Styles.h6p,
+                  style: StylesConfig.getTextStyle('h6'),
                 ),
               ])),
         ),

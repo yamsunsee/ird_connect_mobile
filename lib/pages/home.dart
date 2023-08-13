@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ird_connect/components/app_card.dart';
-import 'package:ird_connect/utils/index.dart';
+import 'package:ird_connect/configs/index.dart';
+import 'package:ird_connect/components/index.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,7 +15,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -25,7 +24,7 @@ class _HomeState extends State<Home> {
             const Text('iRD Connect')
           ],
         ),
-        actions: [buildMenuOptions()],
+        actions: [buildMenuOptions(context)],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,10 +36,11 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Connecting Strategies'.toUpperCase(),
-                      style: Styles.h2p),
-                  Text('Fortifying Defenses'.toUpperCase(), style: Styles.h2p),
+                      style: StylesConfig.getTextStyleWithColor(context, 'h3', 'primary')),
+                  Text('Fortifying Defenses'.toUpperCase(),
+                      style: StylesConfig.getTextStyleWithColor(context, 'h3', 'primary')),
                   Text('Your Cybersecurity Partner'.toUpperCase(),
-                      style: Styles.h4s),
+                      style: StylesConfig.getTextStyle('h6', Colors.black54)),
                   TextButton.icon(
                       onPressed: () {},
                       icon: const Icon(Icons.add_moderator),
@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             Image.asset('assets/images/Onboarding.png', height: 200),
-            buildFilterOptions(),
+            buildFilterOptions(context),
             buildAppCards(),
           ],
         ),
@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           'Login'.toUpperCase(),
-                          style: Styles.h2p,
+                          style: StylesConfig.getTextStyle('h6'),
                         ),
                         const TextField(
                           // controller: _emailController,
@@ -114,7 +114,7 @@ class _HomeState extends State<Home> {
                         const SizedBox(height: 16.0),
                         ElevatedButton(
                           onPressed: () {},
-                          child: Text('Submit'.toUpperCase(), style: Styles.h5),
+                          child: Text('Submit'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),
                         ),
                         const SizedBox(height: 16.0),
                         Row(
@@ -132,29 +132,23 @@ class _HomeState extends State<Home> {
                   ),
                 )),
         icon: const Icon(Icons.app_registration),
-        label: Text(
-          'Login now'.toUpperCase(),
-          style: Styles.h5,
-        ),
+        label: Text('Login now'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  Widget buildMenuOptions() {
+  Widget buildMenuOptions(BuildContext context) {
     return PopupMenuButton(
-      color: Colors.grey.shade200,
+      color: StylesConfig.getColor(context, 'background'),
       icon: const Icon(Icons.menu),
-      itemBuilder: (context) => menuOptions
+      itemBuilder: (context) => VariablesConfig.menuOptions
           .map(
             (option) => PopupMenuItem(
               child: ListTile(
                 onTap: () {
                   Navigator.pop(context);
-                  if (option['page'] != null) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => option['page']));
-                  }
+                  Navigator.pushNamed(context, option['page']);
                 },
                 leading: Icon(option['icon']),
                 title: Text(option['title']),
@@ -166,30 +160,30 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildFilterOptions() {
+  Widget buildFilterOptions(BuildContext context) {
     return Wrap(
       spacing: 8.0,
-      children: filterOptions.asMap().entries.map((entry) {
+      children: VariablesConfig.filterOptions.asMap().entries.map((entry) {
         int index = entry.key;
         Map<String, dynamic> option = entry.value;
         int count = index == 1
-            ? apps.length
+            ? VariablesConfig.apps.length
             : index == 2
-                ? aiApps.length
-                : apps.length + aiApps.length;
+                ? VariablesConfig.aiApps.length
+                : VariablesConfig.apps.length + VariablesConfig.aiApps.length;
 
         return ActionChip(
           label: Text(
             '${option['title']} ($count)',
-            style: TextStyle(
-                color: selectedOption == index ? Colors.white : Colors.indigo),
+            style: TextStyle(color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary')),
           ),
           avatar: Icon(
             option['icon'],
-            color: selectedOption == index ? Colors.white : Colors.indigo,
+            color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary'),
           ),
-          backgroundColor:
-              selectedOption == index ? Colors.indigo : Colors.indigo.shade50,
+          backgroundColor: selectedOption == index
+              ? StylesConfig.getColor(context, 'primary')
+              : StylesConfig.getColor(context, 'primary').withAlpha(50),
           onPressed: () {
             setState(() {
               selectedOption = index;
@@ -203,10 +197,10 @@ class _HomeState extends State<Home> {
 
   Widget buildAppCards() {
     List<Map<String, dynamic>> cards = selectedOption == 1
-        ? apps
+        ? VariablesConfig.apps
         : selectedOption == 2
-            ? aiApps
-            : [...apps, ...aiApps];
+            ? VariablesConfig.aiApps
+            : [...VariablesConfig.apps, ...VariablesConfig.aiApps];
 
     return Expanded(
       child: GridView.count(
