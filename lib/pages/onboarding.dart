@@ -16,75 +16,88 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
-          PageView(
-              controller: _controller,
-              onPageChanged: (index) {
-                setState(() {
-                  _isLastPage = (index == 2);
-                });
-              },
-              children: VariablesConfig.onboardingPages.map((page) {
-                return Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Text(
-                      page['title'].toUpperCase(),
-                      style: StylesConfig.getTextStyle('h2'),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 32.0,
-                    ),
-                    Image.asset('assets/images/${page['image']}'),
-                    const SizedBox(
-                      height: 32.0,
-                    ),
-                    Text(
-                      page['descriptions'],
-                      style: StylesConfig.getTextStyleWithColor(context, 'p', 'paragraph'),
-                      textAlign: TextAlign.center,
-                    ),
-                  ]),
-                );
-              }).toList()),
-          Container(
-              alignment: const Alignment(0, 0.8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
+          Expanded(
+            child: PageView(
+                controller: _controller,
+                onPageChanged: (index) {
+                  setState(() {
+                    _isLastPage = (index == 2);
+                  });
+                },
+                children: VariablesConfig.onboardingPages.map((page) {
+                  return Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            page['title'].toUpperCase(),
+                            style: StylesConfig.getTextStyleWithColor(
+                                context, 'h2', 'primary'),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 32.0,
+                          ),
+                          Image.asset('assets/images/${page['image']}'),
+                          const SizedBox(
+                            height: 32.0,
+                          ),
+                          Text(
+                            page['descriptions'],
+                            style: StylesConfig.getTextStyleWithColor(
+                                context, 'p', 'secondary'),
+                            textAlign: TextAlign.center,
+                          ),
+                        ]),
+                  );
+                }).toList()),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextButton(
+                  onPressed: () {
+                    _controller.animateToPage(2,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeOut);
+                  },
+                  child: Text('SKIP', style: StylesConfig.getTextStyle('h6'))),
+              SmoothPageIndicator(
+                controller: _controller,
+                count: 3,
+                effect: WormEffect(
+                  dotColor: StylesConfig.getColor(context, 'secondary'),
+                  activeDotColor: StylesConfig.getColor(context, 'primary'),
+                ),
+                onDotClicked: (index) {
+                  _controller.animateToPage(index,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeOut);
+                },
+              ),
+              _isLastPage
+                  ? TextButton(
                       onPressed: () {
-                        _controller.animateToPage(2,
-                            duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+                        Navigator.pushReplacementNamed(
+                            context, RoutesConfig.home);
                       },
-                      child: const Text('SKIP')),
-                  SmoothPageIndicator(
-                    controller: _controller,
-                    count: 3,
-                    effect: WormEffect(
-                      dotColor: Colors.grey.shade300,
-                      activeDotColor: Colors.indigo,
-                    ),
-                    onDotClicked: (index) {
-                      _controller.animateToPage(index,
-                          duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-                    },
-                  ),
-                  _isLastPage
-                      ? TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, RoutesConfig.home);
-                          },
-                          child: const Text('DONE'))
-                      : TextButton(
-                          onPressed: () {
-                            _controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-                          },
-                          child: const Text('NEXT')),
-                ],
-              ))
+                      child:
+                          Text('DONE', style: StylesConfig.getTextStyle('h6')))
+                  : TextButton(
+                      onPressed: () {
+                        _controller.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeOut);
+                      },
+                      child:
+                          Text('NEXT', style: StylesConfig.getTextStyle('h6'))),
+            ],
+          ),
+          const SizedBox(height: 16),
         ],
       ),
     );

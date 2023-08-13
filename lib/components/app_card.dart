@@ -13,10 +13,9 @@ class AppCard extends StatelessWidget {
         Navigator.pushNamed(context, RoutesConfig.details, arguments: item);
       },
       child: Card(
-        color: Colors.indigo.shade50,
         child: Center(
           child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(16),
               child: Column(children: [
                 Expanded(
                   child: Image.asset('assets/images/${item['image']}'),
@@ -25,7 +24,7 @@ class AppCard extends StatelessWidget {
                 Text(
                   item['title'],
                   textAlign: TextAlign.center,
-                  style: StylesConfig.getTextStyle('h6'),
+                  style: StylesConfig.getTextStyle('p'),
                 ),
               ])),
         ),

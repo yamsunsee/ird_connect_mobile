@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:ird_connect/configs/index.dart';
 import 'package:ird_connect/providers/index.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());

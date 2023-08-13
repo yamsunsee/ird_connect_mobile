@@ -18,11 +18,13 @@ class Wallet extends StatelessWidget {
             Text('Introduction', style: StylesConfig.getTextStyle('h6')),
             Text(
               'Includes balance, wallet status on iRD Connect.',
-              style: StylesConfig.getTextStyle('p'),
+              style:
+                  StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
             ),
             Text(
               'You can also change the name or id of the wallet according to your style.',
-              style: StylesConfig.getTextStyle('p'),
+              style:
+                  StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
             ),
             const SizedBox(height: 16.0),
             // const ListTile(
@@ -73,7 +75,10 @@ class Wallet extends StatelessWidget {
                     ListTile(
                       title: Text(
                         'Pham The Hien'.toUpperCase(),
-                        style: const TextStyle(color: Colors.white, fontSize: 24.0, fontWeight: FontWeight.w700),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.w700),
                       ),
                       subtitle: const Text(
                         'Wallet Name',
@@ -84,7 +89,8 @@ class Wallet extends StatelessWidget {
                     const ListTile(
                       title: Text(
                         '94f353b6-9999-4a81-Ba09-C63fb5778d02',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w700),
                       ),
                       subtitle: Text(
                         'Card ID',
@@ -96,7 +102,10 @@ class Wallet extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ListTile(
-                            title: Text('Active', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                            title: Text('Active',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700)),
                             subtitle: Text(
                               'Status',
                               style: TextStyle(color: Colors.white70),
@@ -105,7 +114,10 @@ class Wallet extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListTile(
-                            title: Text('Silver', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                            title: Text('Silver',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700)),
                             subtitle: Text(
                               'Rank',
                               style: TextStyle(color: Colors.white70),
@@ -114,7 +126,10 @@ class Wallet extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListTile(
-                            title: Text('300', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                            title: Text('300',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700)),
                             subtitle: Text(
                               'Credits',
                               style: TextStyle(color: Colors.white70),
@@ -131,24 +146,32 @@ class Wallet extends StatelessWidget {
             Text('Transactions', style: StylesConfig.getTextStyle('h6')),
             Text(
               'Including transactions on iRD Connect.',
-              style: StylesConfig.getTextStyle('p'),
+              style:
+                  StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
             ),
             const SizedBox(height: 16.0),
-            const ListTile(
-              leading: Icon(Icons.arrow_circle_left, color: Colors.red),
-              title: Text('Paid for Feature ABC'),
-              subtitle: Text('12:00 - 11/08/2023'),
-              trailing: Text('- 50 Credits'),
+            ListTile(
+              leading: const Icon(Icons.arrow_circle_left, color: Colors.red),
+              title: const Text('Paid for Web Check features'),
+              subtitle: const Text('12:00 - 11/08/2023'),
+              trailing: Text('- 50 Credits',
+                  style: StylesConfig.getTextStyleWithColor(
+                      context, 'p', 'secondary')),
               horizontalTitleGap: -8.0,
-              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
             ),
-            const ListTile(
-              leading: Icon(Icons.arrow_circle_right, color: Colors.green),
-              title: Text('Topped-up money to wallet'),
-              subtitle: Text('20:00 - 10/08/2023'),
-              trailing: Text('+ 300 Credits'),
+            ListTile(
+              leading:
+                  const Icon(Icons.arrow_circle_right, color: Colors.green),
+              title: const Text('Topped-up credits to wallet'),
+              subtitle: const Text('20:00 - 10/08/2023'),
+              trailing: Text('+ 300 Credits',
+                  style: StylesConfig.getTextStyleWithColor(
+                      context, 'p', 'secondary')),
               horizontalTitleGap: -8.0,
-              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
             )
           ],
         ),

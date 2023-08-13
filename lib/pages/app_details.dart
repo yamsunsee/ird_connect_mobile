@@ -6,7 +6,8 @@ class AppDetails extends StatelessWidget {
 
   Map<String, dynamic> _getProps(BuildContext context) {
     final ModalRoute<Object?> route = ModalRoute.of(context)!;
-    final Map<String, dynamic> arguments = route.settings.arguments as Map<String, dynamic>;
+    final Map<String, dynamic> arguments =
+        route.settings.arguments as Map<String, dynamic>;
     return arguments;
   }
 
@@ -33,47 +34,66 @@ class AppDetails extends StatelessWidget {
                 item['title'],
                 style: StylesConfig.getTextStyle('h6'),
               ),
-              Text(item['description'], style: StylesConfig.getTextStyleWithColor(context, 'p', 'paragraph')),
+              Text(item['description'],
+                  style: StylesConfig.getTextStyleWithColor(
+                      context, 'p', 'secondary')),
               ElevatedButton.icon(
                 onPressed: () {
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.developer_board),
-                label: Text('Application is in development state'.toUpperCase()),
+                label:
+                    Text('Application is in development state'.toUpperCase()),
               ),
               const Divider(),
               Expanded(
                 child: ListView(
                   children: [
-                    Text('Introduction', style: StylesConfig.getTextStyle('h6')),
+                    Text('Introduction',
+                        style: StylesConfig.getTextStyle('h6')),
                     Text(
                         'We offer an exceptional service of conducting comprehensive vulnerability scans on your public applications and servers, ensuring that your digital infrastructure remains secure and protected. Our team of skilled cybersecurity experts utilizes cutting-edge scanning tools and methodologies to meticulously examine every aspect of your systems, leaving no stone unturned in the pursuit of identifying potential weaknesses and vulnerabilities.',
-                        style: StylesConfig.getTextStyle('p')),
+                        style: StylesConfig.getTextStyleWithColor(
+                            context, 'p', 'secondary')),
                     const SizedBox(height: 16.0),
                     Text('Features', style: StylesConfig.getTextStyle('h6')),
                     ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                      leading: const Icon(Icons.check_circle, color: Colors.indigo),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 0, vertical: 0),
+                      leading: Icon(Icons.check_circle,
+                          color: StylesConfig.getColor(context, 'primary')),
                       horizontalTitleGap: -8.0,
-                      title: Text('Creating and managing project information', style: StylesConfig.getTextStyle('p')),
+                      title: Text('Creating and managing project information',
+                          style: StylesConfig.getTextStyleWithColor(
+                              context, 'p', 'secondary')),
                     ),
                     ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                      leading: const Icon(Icons.check_circle, color: Colors.indigo),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 0, vertical: 0),
+                      leading: Icon(Icons.check_circle,
+                          color: StylesConfig.getColor(context, 'primary')),
                       horizontalTitleGap: -8.0,
-                      title: Text('Creating and managing information about project scopes',
-                          style: StylesConfig.getTextStyle('p')),
+                      title: Text(
+                          'Creating and managing information about project scopes',
+                          style: StylesConfig.getTextStyleWithColor(
+                              context, 'p', 'secondary')),
                     ),
                     ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                      leading: const Icon(Icons.check_circle, color: Colors.indigo),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 0, vertical: 0),
+                      leading: Icon(Icons.check_circle,
+                          color: StylesConfig.getColor(context, 'primary')),
                       horizontalTitleGap: -8.0,
-                      title: Text('Creating and managing information about vulnerabilities found in the project',
-                          style: StylesConfig.getTextStyle('p')),
+                      title: Text(
+                          'Creating and managing information about vulnerabilities found in the project',
+                          style: StylesConfig.getTextStyleWithColor(
+                              context, 'p', 'secondary')),
                     ),
                     const SizedBox(height: 16.0),
                     Text('Owner', style: StylesConfig.getTextStyle('h6')),
-                    Text('R&D - HPT Cyber Security', style: StylesConfig.getTextStyle('p')),
+                    Text('R&D - HPT Cyber Security',
+                        style: StylesConfig.getTextStyleWithColor(
+                            context, 'p', 'secondary')),
                   ],
                 ),
               )

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ird_connect/configs/index.dart';
 import 'package:ird_connect/components/index.dart';
+import 'package:ird_connect/configs/index.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
         ),
         actions: [buildMenuOptions(context)],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -36,15 +36,19 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Connecting Strategies'.toUpperCase(),
-                      style: StylesConfig.getTextStyleWithColor(context, 'h3', 'primary')),
+                      style: StylesConfig.getTextStyleWithColor(
+                          context, 'h3', 'primary')),
                   Text('Fortifying Defenses'.toUpperCase(),
-                      style: StylesConfig.getTextStyleWithColor(context, 'h3', 'primary')),
+                      style: StylesConfig.getTextStyleWithColor(
+                          context, 'h3', 'primary')),
                   Text('Your Cybersecurity Partner'.toUpperCase(),
-                      style: StylesConfig.getTextStyle('h6', Colors.black54)),
+                      style: StylesConfig.getTextStyleWithColor(
+                          context, 'h6', 'secondary')),
                   TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.add_moderator),
-                      label: const Text('Get started for free'))
+                    onPressed: () {},
+                    icon: const Icon(Icons.add_moderator),
+                    label: const Text('Get started for free'),
+                  ),
                 ],
               ),
             ),
@@ -72,7 +76,8 @@ class _HomeState extends State<Home> {
                       children: [
                         Text(
                           'Login'.toUpperCase(),
-                          style: StylesConfig.getTextStyle('h6'),
+                          style: StylesConfig.getTextStyleWithColor(
+                              context, 'h2', 'primary'),
                         ),
                         const TextField(
                           // controller: _emailController,
@@ -114,7 +119,8 @@ class _HomeState extends State<Home> {
                         const SizedBox(height: 16.0),
                         ElevatedButton(
                           onPressed: () {},
-                          child: Text('Submit'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),
+                          child: Text('Submit'.toUpperCase(),
+                              style: StylesConfig.getTextStyle('h6')),
                         ),
                         const SizedBox(height: 16.0),
                         Row(
@@ -132,7 +138,8 @@ class _HomeState extends State<Home> {
                   ),
                 )),
         icon: const Icon(Icons.app_registration),
-        label: Text('Login now'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),
+        label: Text('Login now'.toUpperCase(),
+            style: StylesConfig.getTextStyle('h6')),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -140,7 +147,7 @@ class _HomeState extends State<Home> {
 
   Widget buildMenuOptions(BuildContext context) {
     return PopupMenuButton(
-      color: StylesConfig.getColor(context, 'background'),
+      // color: StylesConfig.getColor(context, 'background'),
       icon: const Icon(Icons.menu),
       itemBuilder: (context) => VariablesConfig.menuOptions
           .map(
@@ -148,7 +155,22 @@ class _HomeState extends State<Home> {
               child: ListTile(
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, option['page']);
+                  option['page'] == null
+                      ? showModalBottomSheet(
+                          context: context,
+                          builder: (context) => Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const CircularProgressIndicator(),
+                                      const SizedBox(height: 16),
+                                      Text('Logging out...',
+                                          style:
+                                              StylesConfig.getTextStyle('h6'))
+                                    ]),
+                              ))
+                      : Navigator.pushNamed(context, option['page']);
                 },
                 leading: Icon(option['icon']),
                 title: Text(option['title']),
@@ -175,11 +197,16 @@ class _HomeState extends State<Home> {
         return ActionChip(
           label: Text(
             '${option['title']} ($count)',
-            style: TextStyle(color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary')),
+            style: TextStyle(
+                color: selectedOption == index
+                    ? Colors.white
+                    : StylesConfig.getColor(context, 'primary')),
           ),
           avatar: Icon(
             option['icon'],
-            color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary'),
+            color: selectedOption == index
+                ? Colors.white
+                : StylesConfig.getColor(context, 'primary'),
           ),
           backgroundColor: selectedOption == index
               ? StylesConfig.getColor(context, 'primary')
@@ -202,11 +229,14 @@ class _HomeState extends State<Home> {
             ? VariablesConfig.aiApps
             : [...VariablesConfig.apps, ...VariablesConfig.aiApps];
 
-    return Expanded(
-      child: GridView.count(
-        crossAxisCount: 2,
-        children: cards.map((app) => AppCard(item: app)).toList(),
-      ),
+    // return Column(
+    //   children: cards.map((app) => AppCard(item: app)).toList(),
+    // );
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      children: cards.map((app) => AppCard(item: app)).toList(),
     );
   }
 }
