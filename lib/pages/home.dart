@@ -17,10 +17,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
+        title: Wrap(
+          spacing: 8.0,
           children: [
             Image.asset('assets/images/Logo.png', height: 32.0),
-            const SizedBox(width: 8.0),
             const Text('iRD Connect')
           ],
         ),
@@ -118,7 +118,9 @@ class _HomeState extends State<Home> {
                         ),
                         const SizedBox(height: 16.0),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           child: Text('Submit'.toUpperCase(),
                               style: StylesConfig.getTextStyle('h6')),
                         ),
@@ -128,7 +130,10 @@ class _HomeState extends State<Home> {
                           children: [
                             const Text('Do not have an account?'),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, RoutesConfig.register);
+                              },
                               child: const Text('Register'),
                             ),
                           ],

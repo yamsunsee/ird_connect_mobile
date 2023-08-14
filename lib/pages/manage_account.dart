@@ -7,160 +7,36 @@ class ManageAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Manage Account'),
-          centerTitle: true,
+      appBar: AppBar(
+        title: const Text('Manage Account'),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Personal Information'),
+              trailing: const Icon(Icons.more_vert),
+              contentPadding: EdgeInsets.zero,
+              horizontalTitleGap: -8.0,
+              onTap: () {
+                Navigator.pushNamed(context, RoutesConfig.information);
+              },
+            ),
+            ListTile(
+                leading: const Icon(Icons.security),
+                title: const Text('Security'),
+                trailing: const Icon(Icons.more_vert),
+                contentPadding: EdgeInsets.zero,
+                horizontalTitleGap: -8.0,
+                onTap: () {
+                  Navigator.pushNamed(context, RoutesConfig.security);
+                }),
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView(
-            children: [
-              Text('Profile'.toUpperCase(),
-                  style: StylesConfig.getTextStyleWithColor(
-                      context, 'h6', 'primary')),
-              Text('Information', style: StylesConfig.getTextStyle('h6')),
-              Text(
-                  'Some information may be displayed in the applications within the iRD ecosystem.',
-                  style: StylesConfig.getTextStyle('p')),
-              const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Display Name',
-                            style: StylesConfig.getTextStyle('p')),
-                        Text('Full Name',
-                            style: StylesConfig.getTextStyle('p')),
-                        Text('Gender', style: StylesConfig.getTextStyle('p')),
-                        Text('Birthday', style: StylesConfig.getTextStyle('p'))
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('HienPT', style: StylesConfig.getTextStyle('h6')),
-                        Text('Pham The Hien',
-                            style: StylesConfig.getTextStyle('h6')),
-                        Text('Male', style: StylesConfig.getTextStyle('h6')),
-                        Text('01/01/2002',
-                            style: StylesConfig.getTextStyle('h6')),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              Text('Contact', style: StylesConfig.getTextStyle('h6')),
-              Text(
-                  'You can manage your contact information so that our team can provide better support and assistance to you.',
-                  style: StylesConfig.getTextStyle('p')),
-              const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Phone', style: StylesConfig.getTextStyle('p')),
-                        Text('Email', style: StylesConfig.getTextStyle('p')),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('+84123456789',
-                            style: StylesConfig.getTextStyle('h6')),
-                        Text('phamthehien@gmail.com',
-                            style: StylesConfig.getTextStyle('h6')),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              Text('Address', style: StylesConfig.getTextStyle('h6')),
-              Text(
-                  'Your home and office addresses are used to personalize your experience within our ecosystem.',
-                  style: StylesConfig.getTextStyle('p')),
-              const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Home', style: StylesConfig.getTextStyle('p')),
-                        Text('Office', style: StylesConfig.getTextStyle('p')),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Ben Tre Province',
-                            style: StylesConfig.getTextStyle('h6')),
-                        Text('HPT Vietnam Corporation',
-                            style: StylesConfig.getTextStyle('h6')),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              const Divider(),
-              Text('Security'.toUpperCase(),
-                  style: StylesConfig.getTextStyle('h6')),
-              Text(
-                  'We recommend updating this information to make sure your iRD Account is accessible at all times.',
-                  style: StylesConfig.getTextStyle('p')),
-              const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Two Factor',
-                            style: StylesConfig.getTextStyle('p')),
-                        Text('Password', style: StylesConfig.getTextStyle('p')),
-                        Text('Recovery Email',
-                            style: StylesConfig.getTextStyle('p')),
-                        Text('Recovery Phone',
-                            style: StylesConfig.getTextStyle('p')),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Disabled',
-                            style: StylesConfig.getTextStyle('h6')),
-                        Text('Not changed yet',
-                            style: StylesConfig.getTextStyle('h6')),
-                        Text('Not set', style: StylesConfig.getTextStyle('h6')),
-                        Text('Not set', style: StylesConfig.getTextStyle('h6')),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }

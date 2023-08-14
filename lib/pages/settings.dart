@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:ird_connect/providers/index.dart';
+import 'package:provider/provider.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -25,7 +25,7 @@ class _SettingsState extends State<Settings> {
               ListTile(
                   onTap: theme.toggleMode,
                   horizontalTitleGap: -8.0,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 0),
+                  contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.dark_mode),
                   title: const Text('Dark Mode'),
                   trailing: Switch(

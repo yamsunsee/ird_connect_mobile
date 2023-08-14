@@ -6,14 +6,14 @@ class ThemesConfig {
     brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.grey.shade200,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Colors.indigo,
+      backgroundColor: Colors.blue,
       foregroundColor: Colors.white,
     ),
     checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateColor.resolveWith((states) => Colors.indigo),
+      fillColor: MaterialStateColor.resolveWith((states) => Colors.blue),
     ),
     colorScheme: ColorScheme.light(
-      primary: Colors.indigo,
+      primary: Colors.blue,
       secondary: Colors.grey.shade600,
     ),
   );
@@ -22,16 +22,16 @@ class ThemesConfig {
     fontFamily: 'Oswald',
     brightness: Brightness.dark,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: Colors.indigo.shade400,
+      backgroundColor: Colors.blue.shade400,
       foregroundColor: Colors.white,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(foregroundColor: Colors.white)),
     checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateColor.resolveWith((states) => Colors.indigo),
+      fillColor: MaterialStateColor.resolveWith((states) => Colors.blue),
     ),
     colorScheme: ColorScheme.dark(
-      primary: Colors.indigo.shade400,
+      primary: Colors.blue.shade400,
       secondary: Colors.grey.shade500,
     ),
   );
