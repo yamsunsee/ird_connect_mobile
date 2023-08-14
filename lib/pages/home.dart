@@ -37,13 +37,13 @@ class _HomeState extends State<Home> {
                 children: [
                   Text('Connecting Strategies'.toUpperCase(),
                       style: StylesConfig.getTextStyleWithColor(
-                          context, 'h4', 'primary')),
+                          context, 'h3', 'primary')),
                   Text('Fortifying Defenses'.toUpperCase(),
                       style: StylesConfig.getTextStyleWithColor(
-                          context, 'h4', 'primary')),
+                          context, 'h3', 'primary')),
                   Text('Your Cybersecurity Partner'.toUpperCase(),
                       style: StylesConfig.getTextStyleWithColor(
-                          context, 'p', 'secondary')),
+                          context, 'h6', 'secondary')),
                   TextButton.icon(
                     onPressed: () {
                       Navigator.pushNamed(context, RoutesConfig.register);
@@ -237,13 +237,10 @@ class _HomeState extends State<Home> {
             ? VariablesConfig.aiApps
             : [...VariablesConfig.apps, ...VariablesConfig.aiApps];
 
-    // return Column(
-    //   children: cards.map((app) => AppCard(item: app)).toList(),
-    // );
     return GridView.count(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: 3,
+      physics: const NeverScrollableScrollPhysics(),
       children: cards.map((app) => AppCard(item: app)).toList(),
     );
   }

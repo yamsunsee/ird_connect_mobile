@@ -12,22 +12,28 @@ class AppCard extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, RoutesConfig.details, arguments: item);
       },
-      child: Card(
-        child: Center(
-          child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(children: [
-                Expanded(
-                  child: Image.asset('assets/images/${item['image']}'),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  item['title'],
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 8.0),
-                  // style: StylesConfig.getTextStyle('p'),
-                ),
-              ])),
+      child: AspectRatio(
+        aspectRatio: 2,
+        child: Card(
+          child: Center(
+            child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/${item['image']}',
+                        height: 64,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        item['title'],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 8.0),
+                        // style: StylesConfig.getTextStyle('p'),
+                      ),
+                    ])),
+          ),
         ),
       ),
     );
