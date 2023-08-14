@@ -38,9 +38,9 @@ class VariablesConfig {
       'page': RoutesConfig.settings,
     },
     {
-      'icon': Icons.logout,
-      'title': 'Logout',
-      'page': null,
+      'icon': Icons.login,
+      'title': 'Login',
+      'page': RoutesConfig.login,
     },
   ];
 

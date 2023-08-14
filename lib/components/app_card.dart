@@ -24,7 +24,8 @@ class AppCard extends StatelessWidget {
                 Text(
                   item['title'],
                   textAlign: TextAlign.center,
-                  style: StylesConfig.getTextStyle('p'),
+                  style: const TextStyle(fontSize: 8.0),
+                  // style: StylesConfig.getTextStyle('p'),
                 ),
               ])),
         ),

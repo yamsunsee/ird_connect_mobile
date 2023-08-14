@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ird_connect/configs/index.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<Login> createState() => _LoginState();
 }
 
-class _RegisterState extends State<Register> {
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class _RegisterState extends State<Register> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Register'.toUpperCase(),
+              'Login'.toUpperCase(),
               style:
                   StylesConfig.getTextStyleWithColor(context, 'h2', 'primary'),
             ),
@@ -49,6 +49,27 @@ class _RegisterState extends State<Register> {
               obscureText: true,
             ),
             const SizedBox(height: 16.0),
+            Row(
+              children: [
+                Checkbox(
+                  value: true,
+                  onChanged: (value) {
+                    setState(() {
+                      // _rememberMe = value!;
+                    });
+                  },
+                ),
+                const Text('Remember Me'),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {
+                    // TODO: Forgot password function
+                  },
+                  child: const Text('Forget Password?'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, RoutesConfig.home);
@@ -63,9 +84,9 @@ class _RegisterState extends State<Register> {
                 const Text('Already have an account?'),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, RoutesConfig.login);
+                    Navigator.pushNamed(context, RoutesConfig.register);
                   },
-                  child: const Text('Login'),
+                  child: const Text('Register'),
                 ),
               ],
             ),

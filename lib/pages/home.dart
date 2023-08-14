@@ -37,116 +37,118 @@ class _HomeState extends State<Home> {
                 children: [
                   Text('Connecting Strategies'.toUpperCase(),
                       style: StylesConfig.getTextStyleWithColor(
-                          context, 'h3', 'primary')),
+                          context, 'h4', 'primary')),
                   Text('Fortifying Defenses'.toUpperCase(),
                       style: StylesConfig.getTextStyleWithColor(
-                          context, 'h3', 'primary')),
+                          context, 'h4', 'primary')),
                   Text('Your Cybersecurity Partner'.toUpperCase(),
                       style: StylesConfig.getTextStyleWithColor(
-                          context, 'h6', 'secondary')),
+                          context, 'p', 'secondary')),
                   TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, RoutesConfig.register);
+                    },
                     icon: const Icon(Icons.add_moderator),
                     label: const Text('Get started for free'),
                   ),
                 ],
               ),
             ),
-            Image.asset('assets/images/Onboarding.png', height: 200),
+            Image.asset('assets/images/Onboarding.png', height: 160),
             buildFilterOptions(context),
             buildAppCards(),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showModalBottomSheet(
-            isScrollControlled: true,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(16.0),
-              ),
-            ),
-            context: context,
-            builder: (_) => SizedBox(
-                  height: 480,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Login'.toUpperCase(),
-                          style: StylesConfig.getTextStyleWithColor(
-                              context, 'h2', 'primary'),
-                        ),
-                        const TextField(
-                          // controller: _emailController,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            prefixIcon: Icon(Icons.email),
-                          ),
-                        ),
-                        const SizedBox(height: 16.0),
-                        const TextField(
-                          // controller: _passwordController,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            prefixIcon: Icon(Icons.lock),
-                          ),
-                          obscureText: true,
-                        ),
-                        const SizedBox(height: 16.0),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: true,
-                              onChanged: (value) {
-                                setState(() {
-                                  // _rememberMe = value!;
-                                });
-                              },
-                            ),
-                            const Text('Remember Me'),
-                            const Spacer(),
-                            TextButton(
-                              onPressed: () {
-                                // Implement forget password functionality here
-                              },
-                              child: const Text('Forget Password?'),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16.0),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text('Submit'.toUpperCase(),
-                              style: StylesConfig.getTextStyle('h6')),
-                        ),
-                        const SizedBox(height: 16.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Do not have an account?'),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, RoutesConfig.register);
-                              },
-                              child: const Text('Register'),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
-        icon: const Icon(Icons.app_registration),
-        label: Text('Login now'.toUpperCase(),
-            style: StylesConfig.getTextStyle('h6')),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () => showModalBottomSheet(
+      //       isScrollControlled: true,
+      //       shape: const RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.vertical(
+      //           top: Radius.circular(16.0),
+      //         ),
+      //       ),
+      //       context: context,
+      //       builder: (_) => SizedBox(
+      //             height: 480,
+      //             child: Padding(
+      //               padding: const EdgeInsets.all(16.0),
+      //               child: Column(
+      //                 mainAxisAlignment: MainAxisAlignment.center,
+      //                 children: [
+      //                   Text(
+      //                     'Login'.toUpperCase(),
+      //                     style: StylesConfig.getTextStyleWithColor(
+      //                         context, 'h2', 'primary'),
+      //                   ),
+      //                   const TextField(
+      //                     // controller: _emailController,
+      //                     decoration: InputDecoration(
+      //                       labelText: 'Email',
+      //                       prefixIcon: Icon(Icons.email),
+      //                     ),
+      //                   ),
+      //                   const SizedBox(height: 16.0),
+      //                   const TextField(
+      //                     // controller: _passwordController,
+      //                     decoration: InputDecoration(
+      //                       labelText: 'Password',
+      //                       prefixIcon: Icon(Icons.lock),
+      //                     ),
+      //                     obscureText: true,
+      //                   ),
+      //                   const SizedBox(height: 16.0),
+      //                   Row(
+      //                     children: [
+      //                       Checkbox(
+      //                         value: true,
+      //                         onChanged: (value) {
+      //                           setState(() {
+      //                             // _rememberMe = value!;
+      //                           });
+      //                         },
+      //                       ),
+      //                       const Text('Remember Me'),
+      //                       const Spacer(),
+      //                       TextButton(
+      //                         onPressed: () {
+      //                           // Implement forget password functionality here
+      //                         },
+      //                         child: const Text('Forget Password?'),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                   const SizedBox(height: 16.0),
+      //                   ElevatedButton(
+      //                     onPressed: () {
+      //                       Navigator.pop(context);
+      //                     },
+      //                     child: Text('Submit'.toUpperCase(),
+      //                         style: StylesConfig.getTextStyle('h6')),
+      //                   ),
+      //                   const SizedBox(height: 16.0),
+      //                   Row(
+      //                     mainAxisAlignment: MainAxisAlignment.center,
+      //                     children: [
+      //                       const Text('Do not have an account?'),
+      //                       TextButton(
+      //                         onPressed: () {
+      //                           Navigator.pushNamed(
+      //                               context, RoutesConfig.register);
+      //                         },
+      //                         child: const Text('Register'),
+      //                       ),
+      //                     ],
+      //                   ),
+      //                 ],
+      //               ),
+      //             ),
+      //           )),
+      //   icon: const Icon(Icons.app_registration),
+      //   label: Text('Login now'.toUpperCase(),
+      //       style: StylesConfig.getTextStyle('h6')),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 
@@ -160,22 +162,23 @@ class _HomeState extends State<Home> {
               child: ListTile(
                 onTap: () {
                   Navigator.pop(context);
-                  option['page'] == null
-                      ? showModalBottomSheet(
-                          context: context,
-                          builder: (context) => Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const CircularProgressIndicator(),
-                                      const SizedBox(height: 16),
-                                      Text('Logging out...',
-                                          style:
-                                              StylesConfig.getTextStyle('h6'))
-                                    ]),
-                              ))
-                      : Navigator.pushNamed(context, option['page']);
+                  // option['page'] == null
+                  //     ? showModalBottomSheet(
+                  //         context: context,
+                  //         builder: (context) => Padding(
+                  //               padding: const EdgeInsets.all(16.0),
+                  //               child: Column(
+                  //                   mainAxisAlignment: MainAxisAlignment.center,
+                  //                   children: [
+                  //                     const CircularProgressIndicator(),
+                  //                     const SizedBox(height: 16),
+                  //                     Text('Logging out...',
+                  //                         style:
+                  //                             StylesConfig.getTextStyle('h6'))
+                  //                   ]),
+                  //             ))
+                  //     :
+                  Navigator.pushNamed(context, option['page']);
                 },
                 leading: Icon(option['icon']),
                 title: Text(option['title']),
@@ -240,7 +243,7 @@ class _HomeState extends State<Home> {
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
+      crossAxisCount: 3,
       children: cards.map((app) => AppCard(item: app)).toList(),
     );
   }

@@ -41,7 +41,10 @@ class _OnboardingState extends State<Onboarding> {
                           const SizedBox(
                             height: 32.0,
                           ),
-                          Image.asset('assets/images/${page['image']}'),
+                          Image.asset(
+                            'assets/images/${page['image']}',
+                            height: 200,
+                          ),
                           const SizedBox(
                             height: 32.0,
                           ),
@@ -69,7 +72,7 @@ class _OnboardingState extends State<Onboarding> {
               SmoothPageIndicator(
                 controller: _controller,
                 count: 3,
-                effect: WormEffect(
+                effect: SwapEffect(
                   dotColor: StylesConfig.getColor(context, 'secondary'),
                   activeDotColor: StylesConfig.getColor(context, 'primary'),
                 ),
@@ -97,7 +100,7 @@ class _OnboardingState extends State<Onboarding> {
                           Text('NEXT', style: StylesConfig.getTextStyle('h6'))),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 32),
         ],
       ),
     );

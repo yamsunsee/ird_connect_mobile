@@ -1,5 +1,6 @@
 export 'app_details.dart';
 export 'home.dart';
+export 'login.dart';
 export 'manage_account.dart';
 export 'manage_information.dart';
 export 'manage_security.dart';

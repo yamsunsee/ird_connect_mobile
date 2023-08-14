@@ -3,6 +3,7 @@ import 'package:ird_connect/pages/index.dart';
 
 class RoutesConfig {
   static const String home = '/';
+  static const String login = '/login';
   static const String wallet = '/wallet';
   static const String details = '/details';
   static const String settings = '/settings';
@@ -15,6 +16,7 @@ class RoutesConfig {
   static Map<String, WidgetBuilder> initial(BuildContext context) {
     return {
       home: (context) => const Home(),
+      login: (context) => const Login(),
       wallet: (context) => const Wallet(),
       settings: (context) => const Settings(),
       register: (context) => const Register(),
