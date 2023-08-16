@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ird_connect/configs/index.dart';
+import 'package:ird_connect/services/index.dart';
 
-class ManageAccount extends StatelessWidget {
+class ManageAccount extends StatefulWidget {
   const ManageAccount({super.key});
 
+  @override
+  State<ManageAccount> createState() => _ManageAccountState();
+}
+
+class _ManageAccountState extends State<ManageAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +29,7 @@ class ManageAccount extends StatelessWidget {
               horizontalTitleGap: -8.0,
               onTap: () {
                 Navigator.pushNamed(context, RoutesConfig.information);
+                UserService.getInformation(context);
               },
             ),
             ListTile(
@@ -33,6 +40,7 @@ class ManageAccount extends StatelessWidget {
                 horizontalTitleGap: -8.0,
                 onTap: () {
                   Navigator.pushNamed(context, RoutesConfig.security);
+                  UserService.getInformation(context);
                 }),
           ],
         ),
