@@ -44,6 +44,19 @@ class VariablesConfig {
     ),
   ];
 
+  static List<MenuOption> guestMenuOptions = [
+    MenuOption(
+      icon: Icons.settings,
+      title: 'Settings',
+      page: RoutesConfig.settings,
+    ),
+    MenuOption(
+      icon: Icons.login,
+      title: 'Login',
+      page: RoutesConfig.login,
+    ),
+  ];
+
   static List<FilterOption> filterOptions = [
     FilterOption(
       icon: Icons.apps,

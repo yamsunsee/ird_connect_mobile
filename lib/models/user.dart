@@ -2,7 +2,7 @@ class User {
   late String clientUuid;
   late String firstName;
   late String lastName;
-  late String displayName;
+  late String displayName = '';
   late String gender;
   late String email;
   late String phoneNumber;

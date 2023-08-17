@@ -24,16 +24,17 @@ class Services {
     String errorMessages = '';
 
     if (errors.runtimeType is String) {
-      errorMessages = errors as String;
-    } else if (errors.runtimeType is Map<String, dynamic>) {
-      final objects = errors as Map<String, dynamic>;
-      objects.forEach((key, value) {
-        if (value is List) {
-          errorMessages += '${value.join('\n')}\n';
-        }
-      });
+      errorMessages = errors;
     } else {
-      errorMessages = errors.toString();
+      try {
+        errors.forEach((key, value) {
+          if (value is List) {
+            errorMessages += '${value.join('\n')}\n';
+          }
+        });
+      } catch (_) {
+        errorMessages = errors.toString();
+      }
     }
 
     if (errorMessages.isNotEmpty) {
@@ -46,7 +47,10 @@ class Services {
               style: const TextStyle(color: Colors.red),
             ),
             icon: const Icon(Icons.error, color: Colors.red),
-            content: Text(errorMessages),
+            content: Text(
+              errorMessages,
+              textAlign: TextAlign.center,
+            ),
             actionsAlignment: MainAxisAlignment.center,
             actions: [
               ElevatedButton(
@@ -66,9 +70,9 @@ class Services {
     required BuildContext context,
     required RequestMethod method,
     required String url,
-    required Function action,
+    Function? action,
     Function? redirect,
-    dynamic body,
+    Map<String, String>? body,
   }) async {
     try {
       late dynamic response;
@@ -90,7 +94,7 @@ class Services {
 
       final data = response.data as Map<String, dynamic>;
       if (data['status'] == 'Success') {
-        action(data);
+        if (action is Function) action(data);
         if (context.mounted) {
           Navigator.pop(context);
           if (redirect is Function) redirect();

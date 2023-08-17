@@ -14,6 +14,13 @@ class ManageInformation extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Manage Personal Information'),
             centerTitle: true,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    _edit(context);
+                  },
+                  icon: const Icon(Icons.edit_note))
+            ],
           ),
           body: ListView(
             padding: const EdgeInsets.all(16.0),
@@ -26,7 +33,7 @@ class ManageInformation extends StatelessWidget {
                 leading: const Icon(Icons.screenshot_monitor),
                 title: Text(user.information.displayName),
                 subtitle: const Text('Display Name'),
-                trailing: const Icon(Icons.more_vert),
+                // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
@@ -35,7 +42,7 @@ class ManageInformation extends StatelessWidget {
                 leading: const Icon(Icons.perm_contact_cal),
                 title: Text('${user.information.firstName} ${user.information.lastName}'),
                 subtitle: const Text('Full Name'),
-                trailing: const Icon(Icons.more_vert),
+                // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
@@ -44,7 +51,7 @@ class ManageInformation extends StatelessWidget {
                 leading: const Icon(Icons.boy),
                 title: Text(user.information.gender),
                 subtitle: const Text('Gender'),
-                trailing: const Icon(Icons.more_vert),
+                // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
@@ -53,7 +60,7 @@ class ManageInformation extends StatelessWidget {
                 leading: const Icon(Icons.calendar_month),
                 title: Text(user.information.dateOfBirth),
                 subtitle: const Text('Birthday'),
-                trailing: const Icon(Icons.more_vert),
+                // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
@@ -68,7 +75,7 @@ class ManageInformation extends StatelessWidget {
                 leading: const Icon(Icons.phone),
                 title: Text(user.information.phoneNumber),
                 subtitle: const Text('Phone Number'),
-                trailing: const Icon(Icons.more_vert),
+                // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
@@ -77,7 +84,7 @@ class ManageInformation extends StatelessWidget {
                 leading: const Icon(Icons.email),
                 title: Text(user.information.email),
                 subtitle: const Text('Email'),
-                trailing: const Icon(Icons.more_vert),
+                // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
@@ -91,7 +98,7 @@ class ManageInformation extends StatelessWidget {
                 leading: const Icon(Icons.home),
                 title: Text(user.information.address1),
                 subtitle: const Text('Home'),
-                trailing: const Icon(Icons.more_vert),
+                // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
@@ -100,13 +107,24 @@ class ManageInformation extends StatelessWidget {
                 leading: const Icon(Icons.work),
                 title: Text(user.information.address2),
                 subtitle: const Text('Office'),
-                trailing: const Icon(Icons.more_vert),
+                // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
               ),
             ],
           ),
+        );
+      },
+    );
+  }
+
+  Future<dynamic> _edit(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return const Column(
+          children: [Text('Edit information')],
         );
       },
     );

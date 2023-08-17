@@ -17,6 +17,16 @@ class _HomeState extends State<Home> {
   int selectedOption = 0;
 
   @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration.zero, () {
+      final isLoggedIn = Provider.of<UserProvider>(context, listen: false).isLoggedIn;
+      if (isLoggedIn) UserService.getInformation(context);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<UserProvider>(
       builder: (context, user, child) {
@@ -27,15 +37,7 @@ class _HomeState extends State<Home> {
               spacing: 8.0,
               children: [Image.asset('assets/images/Logo.png', height: 32.0), const Text('iRD Connect')],
             ),
-            actions: [
-              user.isLoggedIn
-                  ? buildMenuOptions(context)
-                  : IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, RoutesConfig.login);
-                      },
-                      icon: const Icon(Icons.app_registration))
-            ],
+            actions: [buildMenuOptions(context, user.isLoggedIn)],
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
@@ -46,6 +48,9 @@ class _HomeState extends State<Home> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (user.isLoggedIn)
+                        Text('Welcome, ${user.information.displayName}!'.toUpperCase(),
+                            style: StylesConfig.getTextStyleWithColor(context, 'h4', 'accent')),
                       Text('Connecting Strategies'.toUpperCase(),
                           style: StylesConfig.getTextStyleWithColor(context, 'h3', 'primary')),
                       Text('Fortifying Defenses'.toUpperCase(),
@@ -73,11 +78,11 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildMenuOptions(BuildContext context) {
+  Widget buildMenuOptions(BuildContext context, bool isLoggedIn) {
+    final options = isLoggedIn ? VariablesConfig.menuOptions : VariablesConfig.guestMenuOptions;
     return PopupMenuButton(
-      // color: StylesConfig.getColor(context, 'background'),
       icon: const Icon(Icons.menu),
-      itemBuilder: (context) => VariablesConfig.menuOptions
+      itemBuilder: (context) => options
           .map(
             (option) => PopupMenuItem(
               child: ListTile(

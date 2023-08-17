@@ -21,6 +21,9 @@ class StylesConfig {
       case 'secondary':
         return themeColors.colorScheme.secondary;
 
+      case 'accent':
+        return themeColors.colorScheme.tertiary;
+
       default:
         throw Exception('Invalid color: $color');
     }
@@ -33,8 +36,7 @@ class StylesConfig {
     );
   }
 
-  static TextStyle getTextStyleWithColor(
-      BuildContext context, String type, String color) {
+  static TextStyle getTextStyleWithColor(BuildContext context, String type, String color) {
     return TextStyle(
       fontSize: defaultStyles[type]![0],
       fontWeight: defaultStyles[type]![1],

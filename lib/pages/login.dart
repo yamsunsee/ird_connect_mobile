@@ -10,11 +10,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isHidePassword = true;
   bool _isRememberMe = false;
+
+  String? _validateRequired(String? value, String fieldName) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your $fieldName.';
+    }
+    return null;
+  }
 
   void _submit(context) {
     if (_formKey.currentState!.validate()) {
@@ -39,7 +46,7 @@ class _LoginState extends State<Login> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -52,12 +59,7 @@ class _LoginState extends State<Login> {
               ),
               TextFormField(
                 controller: _emailController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  return null;
-                },
+                validator: (value) => _validateRequired(value, 'email'),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: const InputDecoration(
                   labelText: 'Email',
@@ -67,23 +69,19 @@ class _LoginState extends State<Login> {
               const SizedBox(height: 16.0),
               TextFormField(
                 controller: _passwordController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
+                validator: (value) => _validateRequired(value, 'password'),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   prefixIcon: const Icon(Icons.lock),
                   suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _isHidePassword = !_isHidePassword;
-                        });
-                      },
-                      icon: Icon(_isHidePassword ? Icons.visibility : Icons.visibility_off)),
+                    onPressed: () {
+                      setState(() {
+                        _isHidePassword = !_isHidePassword;
+                      });
+                    },
+                    icon: Icon(_isHidePassword ? Icons.visibility : Icons.visibility_off),
+                  ),
                 ),
                 obscureText: _isHidePassword,
               ),
@@ -124,7 +122,7 @@ class _LoginState extends State<Login> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Already have an account?'),
+                  const Text('Do not have an account?'),
                   TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, RoutesConfig.register);
