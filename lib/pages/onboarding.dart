@@ -32,13 +32,13 @@ class _OnboardingState extends State<Onboarding> {
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Text(
                         page.title.toUpperCase(),
-                        style: StylesConfig.getTextStyleWithColor(context, 'h2', 'primary'),
+                        style: StylesConfig.getTextStyleWithColor(context, 'h3', 'primary'),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 32),
                       Image.asset(
                         'assets/images/${page.image}',
-                        height: 200,
+                        height: 240,
                       ),
                       const SizedBox(height: 32),
                       Text(

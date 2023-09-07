@@ -156,7 +156,7 @@ class _ManageInformationState extends State<ManageInformation> {
       builder: (context) {
         return SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
             child: Form(
               key: formKey,
               child: Column(
@@ -184,7 +184,7 @@ class _ManageInformationState extends State<ManageInformation> {
                             ),
                           ),
                           const SizedBox(
-                            width: 8.0,
+                            width: 8,
                           ),
                           Expanded(
                             child: TextFormField(

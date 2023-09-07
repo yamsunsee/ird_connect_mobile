@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         title: Wrap(
-          spacing: 8.0,
+          spacing: 8,
           children: [
             Image.asset('assets/images/Logo.png', height: 32),
             const Text('iRD Connect'),

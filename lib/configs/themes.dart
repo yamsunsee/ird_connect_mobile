@@ -11,7 +11,7 @@ class ThemesConfig {
     colorScheme: ColorScheme.light(
       primary: Colors.blue,
       secondary: Colors.grey.shade600,
-      tertiary: Colors.blueAccent,
+      tertiary: Colors.blue.shade300,
     ),
   );
 

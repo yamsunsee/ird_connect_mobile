@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: Wrap(
-              spacing: 8.0,
+              spacing: 8,
               children: [Image.asset('assets/images/Logo.png', height: 32), const Text('iRD Connect')],
             ),
             actions: [buildMenuOptions(context, user.isLoggedIn)],
@@ -57,12 +57,15 @@ class _HomeState extends State<Home> {
                           style: StylesConfig.getTextStyleWithColor(context, 'h3', 'primary')),
                       Text('Your Cybersecurity Partner'.toUpperCase(),
                           style: StylesConfig.getTextStyleWithColor(context, 'h6', 'secondary')),
-                      TextButton.icon(
-                        onPressed: () {
-                          Navigator.pushNamed(context, RoutesConfig.register);
-                        },
-                        icon: const Icon(Icons.add_moderator),
-                        label: const Text('Get started for free'),
+                      Visibility(
+                        visible: !user.isLoggedIn,
+                        child: TextButton.icon(
+                          onPressed: () {
+                            Navigator.pushNamed(context, RoutesConfig.register);
+                          },
+                          icon: const Icon(Icons.add_moderator),
+                          label: const Text('Get started for free'),
+                        ),
                       ),
                     ],
                   ),
@@ -104,7 +107,7 @@ class _HomeState extends State<Home> {
 
   Widget buildFilterOptions(BuildContext context) {
     return Wrap(
-      spacing: 4.0,
+      spacing: 4,
       children: VariablesConfig.filterOptions.asMap().entries.map((entry) {
         int index = entry.key;
         FilterOption option = entry.value;
@@ -119,12 +122,12 @@ class _HomeState extends State<Home> {
             '${option.title} ($count)',
             style: TextStyle(
               color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary'),
-              fontSize: 12.0,
+              fontSize: 12,
             ),
           ),
           avatar: Icon(
             option.icon,
-            size: 16.0,
+            size: 16,
             color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary'),
           ),
           backgroundColor: selectedOption == index

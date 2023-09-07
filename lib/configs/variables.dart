@@ -5,18 +5,18 @@ import 'package:ird_connect/models/index.dart';
 class VariablesConfig {
   static List<OnboardingPage> onboardingPages = [
     OnboardingPage(
-      image: 'Onboarding.png',
-      title: 'Welcome to iRD Connect!',
+      image: 'Onboarding01.png',
+      title: 'Welcome to \niRD Connect!',
       description: 'Exploring our applications now!',
     ),
     OnboardingPage(
-      image: 'Onboarding.png',
-      title: 'Integrating AI into applications!',
+      image: 'Onboarding02.png',
+      title: 'Integrating AI \ninto applications!',
       description: 'Exploring our AI applications now!',
     ),
     OnboardingPage(
-      image: 'Onboarding.png',
-      title: 'Free credits to your wallet!',
+      image: 'Onboarding03.png',
+      title: 'Free credits \nto your wallet!',
       description: 'Receive 300 free credits into your wallet immediately upon registration!',
     ),
   ];

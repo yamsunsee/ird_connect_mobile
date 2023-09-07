@@ -58,7 +58,7 @@ class Wallet extends StatelessWidget {
                 //   subtitle: Text('Balance'),
                 // ),
                 Card(
-                  elevation: 4.0,
+                  elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -77,7 +77,7 @@ class Wallet extends StatelessWidget {
                         ListTile(
                           title: Text(
                             '${user.information.firstName} ${user.information.lastName}'.toUpperCase(),
-                            style: const TextStyle(color: Colors.white, fontSize: 24.0, fontWeight: FontWeight.w700),
+                            style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
                           ),
                           subtitle: const Text(
                             'Wallet Name',

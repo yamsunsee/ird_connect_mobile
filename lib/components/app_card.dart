@@ -20,7 +20,7 @@ class AppCard extends StatelessWidget {
               child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Image.asset(
                   'assets/images/${item.image}',
-                  height: 48.0,
+                  height: 48,
                 ),
                 const SizedBox(height: 8),
                 Text(

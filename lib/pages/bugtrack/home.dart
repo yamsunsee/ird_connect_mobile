@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ird_connect/configs/styles.dart';
 import 'package:ird_connect/models/index.dart';
 import 'package:ird_connect/pages/bugtrack/index.dart';
 
@@ -33,9 +34,12 @@ class _BugTrackHomeState extends State<BugTrackHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Wrap(
-          spacing: 8.0,
-          children: [Image.asset('assets/images/BugTrack.png', height: 32), const Text('HPT BugTrack Platform')],
+        title: Row(
+          children: [
+            Image.asset('assets/images/BugTrack.png', height: 32),
+            const SizedBox(width: 8),
+            const Expanded(child: Text('HPT BugTrack Platform')),
+          ],
         ),
         centerTitle: true,
         actions: [
@@ -73,7 +77,8 @@ class _BugTrackHomeState extends State<BugTrackHome> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirm action'.toUpperCase()),
-          content: const Text('Are you sure you want to redirect to HPT BugTrack Platform?'),
+          content: Text('Are you sure you want to redirect to HPT BugTrack Platform?',
+              style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
           actionsAlignment: MainAxisAlignment.spaceEvenly,
           actions: [
             ElevatedButton.icon(
