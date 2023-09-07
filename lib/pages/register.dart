@@ -80,14 +80,12 @@ class _RegisterState extends State<Register> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       labelText: 'First Name',
-                      prefixIcon: Icon(Icons.person),
+                      prefixIcon: Icon(Icons.perm_contact_cal),
                     ),
                     validator: (value) => _validateRequired(value, 'first name'),
                   ),
                 ),
-                const SizedBox(
-                  width: 8.0,
-                ),
+                const SizedBox(width: 8.0),
                 Expanded(
                   child: TextFormField(
                     controller: _lastNameController,
@@ -145,7 +143,7 @@ class _RegisterState extends State<Register> {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
-                  prefixIcon: const Icon(Icons.lock_clock_rounded),
+                  prefixIcon: const Icon(Icons.enhanced_encryption),
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
@@ -173,7 +171,7 @@ class _RegisterState extends State<Register> {
                   const Text('Already have an account?'),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, RoutesConfig.login);
+                      Navigator.pushReplacementNamed(context, RoutesConfig.login);
                     },
                     child: const Text('Login'),
                   ),

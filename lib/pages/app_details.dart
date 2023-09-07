@@ -25,9 +25,9 @@ class AppDetails extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/${item.image}',
-              height: 200,
+              height: 120,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Text(
               item.title,
               style: StylesConfig.getTextStyle('h6'),

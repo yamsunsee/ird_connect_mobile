@@ -125,7 +125,7 @@ class _LoginState extends State<Login> {
                   const Text('Do not have an account?'),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, RoutesConfig.register);
+                      Navigator.pushReplacementNamed(context, RoutesConfig.register);
                     },
                     child: const Text('Register'),
                   ),

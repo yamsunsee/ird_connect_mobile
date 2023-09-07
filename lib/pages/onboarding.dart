@@ -35,16 +35,12 @@ class _OnboardingState extends State<Onboarding> {
                         style: StylesConfig.getTextStyleWithColor(context, 'h2', 'primary'),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(
-                        height: 32.0,
-                      ),
+                      const SizedBox(height: 32.0),
                       Image.asset(
                         'assets/images/${page.image}',
                         height: 200,
                       ),
-                      const SizedBox(
-                        height: 32.0,
-                      ),
+                      const SizedBox(height: 32.0),
                       Text(
                         page.description,
                         style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
@@ -87,7 +83,7 @@ class _OnboardingState extends State<Onboarding> {
                       child: Text('NEXT', style: StylesConfig.getTextStyle('h6'))),
             ],
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 32.0),
         ],
       ),
     );

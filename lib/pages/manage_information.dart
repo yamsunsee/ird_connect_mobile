@@ -52,7 +52,7 @@ class _ManageInformationState extends State<ManageInformation> {
               ),
               ListTile(
                 leading: const Icon(Icons.accessibility),
-                title: Text(user.information.gender),
+                title: Text(user.information.gender.isNotEmpty ? user.information.gender : 'Unset'),
                 subtitle: const Text('Gender'),
                 // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
@@ -60,7 +60,7 @@ class _ManageInformationState extends State<ManageInformation> {
               ),
               ListTile(
                 leading: const Icon(Icons.cake),
-                title: Text(user.information.dateOfBirth),
+                title: Text(user.information.dateOfBirth.isNotEmpty ? user.information.dateOfBirth : 'Unset'),
                 subtitle: const Text('Birthday'),
                 // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
@@ -74,7 +74,7 @@ class _ManageInformationState extends State<ManageInformation> {
               const SizedBox(height: 8.0),
               ListTile(
                 leading: const Icon(Icons.phone),
-                title: Text(user.information.phoneNumber),
+                title: Text(user.information.phoneNumber.isNotEmpty ? user.information.phoneNumber : 'Unset'),
                 subtitle: const Text('Phone Number'),
                 // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
@@ -82,7 +82,7 @@ class _ManageInformationState extends State<ManageInformation> {
               ),
               ListTile(
                 leading: const Icon(Icons.email),
-                title: Text(user.information.email),
+                title: Text(user.information.email.isNotEmpty ? user.information.email : 'Unset'),
                 subtitle: const Text('Email'),
                 // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
@@ -95,7 +95,7 @@ class _ManageInformationState extends State<ManageInformation> {
               const SizedBox(height: 8.0),
               ListTile(
                 leading: const Icon(Icons.home),
-                title: Text(user.information.address1),
+                title: Text(user.information.address1.isNotEmpty ? user.information.address1 : 'Unset'),
                 subtitle: const Text('Home'),
                 // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
@@ -103,7 +103,7 @@ class _ManageInformationState extends State<ManageInformation> {
               ),
               ListTile(
                 leading: const Icon(Icons.work),
-                title: Text(user.information.address2),
+                title: Text(user.information.address2.isNotEmpty ? user.information.address2 : 'Unset'),
                 subtitle: const Text('Office'),
                 // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8.0,
@@ -128,18 +128,23 @@ class _ManageInformationState extends State<ManageInformation> {
     final TextEditingController address1Controller = TextEditingController(text: user.information.address1);
     final TextEditingController address2Controller = TextEditingController(text: user.information.address2);
 
-    void _submit(context) {
+    void submit(context) {
       if (formKey.currentState!.validate()) {
         final formData = {
-          'displayName': displayNameController.text,
-          'gender': genderController.text,
+          'first_name': firstNameController.text,
+          'last_name': lastNameController.text,
+          'display_name': displayNameController.text,
+          'address_1': address1Controller.text,
+          'address_2': address2Controller.text,
+          'date_of_birth': birthdayController.text,
+          'phone_number': phoneNumberController.text,
         };
         print(formData);
-        // UserService.login(context, credentials);
+        // UserService.updateInformation(context, formData);
       }
     }
 
-    String? _validateRequired(String? value, String fieldName) {
+    String? validateRequired(String? value, String fieldName) {
       if (value == null || value.isEmpty) {
         return 'Please enter your $fieldName.';
       }
@@ -173,9 +178,9 @@ class _ManageInformationState extends State<ManageInformation> {
                               autovalidateMode: AutovalidateMode.onUserInteraction,
                               decoration: const InputDecoration(
                                 labelText: 'First Name',
-                                prefixIcon: Icon(Icons.person),
+                                prefixIcon: Icon(Icons.perm_contact_cal),
                               ),
-                              validator: (value) => _validateRequired(value, 'first name'),
+                              validator: (value) => validateRequired(value, 'first name'),
                             ),
                           ),
                           const SizedBox(
@@ -189,7 +194,7 @@ class _ManageInformationState extends State<ManageInformation> {
                                 labelText: 'Last Name',
                                 // prefixIcon: Icon(Icons.person),
                               ),
-                              validator: (value) => _validateRequired(value, 'last name'),
+                              validator: (value) => validateRequired(value, 'last name'),
                             ),
                           )
                         ]),
@@ -200,14 +205,7 @@ class _ManageInformationState extends State<ManageInformation> {
                             labelText: 'Display Name',
                             prefixIcon: Icon(Icons.screenshot_monitor),
                           ),
-                          validator: (value) => _validateRequired(value, 'display name'),
-                        ),
-                        TextFormField(
-                          controller: genderController,
-                          decoration: const InputDecoration(
-                            labelText: 'Gender',
-                            prefixIcon: Icon(Icons.accessibility),
-                          ),
+                          validator: (value) => validateRequired(value, 'display name'),
                         ),
                         DropdownButtonFormField<String>(
                           onChanged: (newValue) {
@@ -281,9 +279,10 @@ class _ManageInformationState extends State<ManageInformation> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 16.0),
                   ElevatedButton(
                     onPressed: () {
-                      _submit(context);
+                      submit(context);
                       Navigator.pop(context);
                     },
                     child: Text('Submit'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),

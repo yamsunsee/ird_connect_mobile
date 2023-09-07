@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                Image.asset('assets/images/Onboarding.png', height: 160),
+                Image.asset('assets/images/Onboarding.png', height: 120),
                 buildFilterOptions(context),
                 buildAppCards(),
               ],
@@ -105,7 +105,7 @@ class _HomeState extends State<Home> {
 
   Widget buildFilterOptions(BuildContext context) {
     return Wrap(
-      spacing: 8.0,
+      spacing: 4.0,
       children: VariablesConfig.filterOptions.asMap().entries.map((entry) {
         int index = entry.key;
         FilterOption option = entry.value;
@@ -118,10 +118,14 @@ class _HomeState extends State<Home> {
         return ActionChip(
           label: Text(
             '${option.title} ($count)',
-            style: TextStyle(color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary')),
+            style: TextStyle(
+              color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary'),
+              fontSize: 12.0,
+            ),
           ),
           avatar: Icon(
             option.icon,
+            size: 16.0,
             color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary'),
           ),
           backgroundColor: selectedOption == index
@@ -132,7 +136,7 @@ class _HomeState extends State<Home> {
               selectedOption = index;
             });
           },
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          padding: const EdgeInsets.all(8.0),
         );
       }).toList(),
     );

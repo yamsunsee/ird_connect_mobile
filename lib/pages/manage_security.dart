@@ -18,7 +18,7 @@ class ManageSecurity extends StatelessWidget {
             body: ListView(
               padding: const EdgeInsets.all(16.0),
               children: [
-                Text('How you sign in to iRD account?'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),
+                Text('How you sign in to iRD account?', style: StylesConfig.getTextStyle('h6')),
                 Text('We recommend updating this information to make sure your iRD Account is accessible at all times.',
                     style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
                 const SizedBox(height: 8.0),
@@ -32,7 +32,9 @@ class ManageSecurity extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const Icon(Icons.lock),
-                  title: Text(user.information.passwordLastChanged),
+                  title: Text(user.information.passwordLastChanged.isNotEmpty
+                      ? user.information.passwordLastChanged
+                      : 'Unchanged'),
                   subtitle: const Text('Password'),
                   trailing: const Icon(Icons.more_vert),
                   horizontalTitleGap: -8.0,
@@ -41,7 +43,7 @@ class ManageSecurity extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const Icon(Icons.email),
-                  title: Text(user.information.recoveryEmail),
+                  title: Text(user.information.recoveryEmail.isNotEmpty ? user.information.recoveryEmail : 'Unset'),
                   subtitle: const Text('Recovery Email'),
                   trailing: const Icon(Icons.more_vert),
                   horizontalTitleGap: -8.0,
@@ -50,7 +52,8 @@ class ManageSecurity extends StatelessWidget {
                 ),
                 ListTile(
                   leading: const Icon(Icons.phone),
-                  title: Text(user.information.recoveryPhoneNumber),
+                  title: Text(
+                      user.information.recoveryPhoneNumber.isNotEmpty ? user.information.recoveryPhoneNumber : 'Unset'),
                   subtitle: const Text('Recovery Phone'),
                   trailing: const Icon(Icons.more_vert),
                   horizontalTitleGap: -8.0,
