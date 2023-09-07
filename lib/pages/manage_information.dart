@@ -28,18 +28,18 @@ class _ManageInformationState extends State<ManageInformation> {
             ],
           ),
           body: ListView(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             children: [
               Text('Information', style: StylesConfig.getTextStyle('h6')),
               Text('Some information may be displayed in the applications within the iRD ecosystem.',
                   style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 8),
               ListTile(
                 leading: const Icon(Icons.perm_contact_cal),
                 title: Text('${user.information.firstName} ${user.information.lastName}'),
                 subtitle: const Text('Full Name'),
                 // trailing: const Icon(Icons.more_vert),
-                horizontalTitleGap: -8.0,
+                horizontalTitleGap: -8,
                 contentPadding: EdgeInsets.zero,
               ),
               ListTile(
@@ -47,7 +47,7 @@ class _ManageInformationState extends State<ManageInformation> {
                 title: Text(user.information.displayName),
                 subtitle: const Text('Display Name'),
                 // trailing: const Icon(Icons.more_vert),
-                horizontalTitleGap: -8.0,
+                horizontalTitleGap: -8,
                 contentPadding: EdgeInsets.zero,
               ),
               ListTile(
@@ -55,7 +55,7 @@ class _ManageInformationState extends State<ManageInformation> {
                 title: Text(user.information.gender.isNotEmpty ? user.information.gender : 'Unset'),
                 subtitle: const Text('Gender'),
                 // trailing: const Icon(Icons.more_vert),
-                horizontalTitleGap: -8.0,
+                horizontalTitleGap: -8,
                 contentPadding: EdgeInsets.zero,
               ),
               ListTile(
@@ -63,21 +63,21 @@ class _ManageInformationState extends State<ManageInformation> {
                 title: Text(user.information.dateOfBirth.isNotEmpty ? user.information.dateOfBirth : 'Unset'),
                 subtitle: const Text('Birthday'),
                 // trailing: const Icon(Icons.more_vert),
-                horizontalTitleGap: -8.0,
+                horizontalTitleGap: -8,
                 contentPadding: EdgeInsets.zero,
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               Text('Contact', style: StylesConfig.getTextStyle('h6')),
               Text(
                   'You can manage your contact information so that our team can provide better support and assistance to you.',
                   style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 8),
               ListTile(
                 leading: const Icon(Icons.phone),
                 title: Text(user.information.phoneNumber.isNotEmpty ? user.information.phoneNumber : 'Unset'),
                 subtitle: const Text('Phone Number'),
                 // trailing: const Icon(Icons.more_vert),
-                horizontalTitleGap: -8.0,
+                horizontalTitleGap: -8,
                 contentPadding: EdgeInsets.zero,
               ),
               ListTile(
@@ -85,20 +85,20 @@ class _ManageInformationState extends State<ManageInformation> {
                 title: Text(user.information.email.isNotEmpty ? user.information.email : 'Unset'),
                 subtitle: const Text('Email'),
                 // trailing: const Icon(Icons.more_vert),
-                horizontalTitleGap: -8.0,
+                horizontalTitleGap: -8,
                 contentPadding: EdgeInsets.zero,
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               Text('Address', style: StylesConfig.getTextStyle('h6')),
               Text('Your home and office addresses are used to personalize your experience within our ecosystem.',
                   style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 8),
               ListTile(
                 leading: const Icon(Icons.home),
                 title: Text(user.information.address1.isNotEmpty ? user.information.address1 : 'Unset'),
                 subtitle: const Text('Home'),
                 // trailing: const Icon(Icons.more_vert),
-                horizontalTitleGap: -8.0,
+                horizontalTitleGap: -8,
                 contentPadding: EdgeInsets.zero,
               ),
               ListTile(
@@ -106,7 +106,7 @@ class _ManageInformationState extends State<ManageInformation> {
                 title: Text(user.information.address2.isNotEmpty ? user.information.address2 : 'Unset'),
                 subtitle: const Text('Office'),
                 // trailing: const Icon(Icons.more_vert),
-                horizontalTitleGap: -8.0,
+                horizontalTitleGap: -8,
                 contentPadding: EdgeInsets.zero,
               ),
             ],
@@ -156,7 +156,7 @@ class _ManageInformationState extends State<ManageInformation> {
       builder: (context) {
         return SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16),
             child: Form(
               key: formKey,
               child: Column(
@@ -166,7 +166,7 @@ class _ManageInformationState extends State<ManageInformation> {
                     style: StylesConfig.getTextStyleWithColor(context, 'h2', 'primary'),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -242,7 +242,7 @@ class _ManageInformationState extends State<ManageInformation> {
                             }
                           },
                         ),
-                        const SizedBox(height: 32.0),
+                        const SizedBox(height: 32),
                         Text('Contact', style: StylesConfig.getTextStyle('h6')),
                         TextFormField(
                           controller: phoneNumberController,
@@ -260,7 +260,7 @@ class _ManageInformationState extends State<ManageInformation> {
                           ),
                           keyboardType: TextInputType.emailAddress, // Use the email keyboard
                         ),
-                        const SizedBox(height: 32.0),
+                        const SizedBox(height: 32),
                         Text('Address', style: StylesConfig.getTextStyle('h6')),
                         TextFormField(
                           controller: address1Controller,
@@ -279,7 +279,7 @@ class _ManageInformationState extends State<ManageInformation> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       submit(context);

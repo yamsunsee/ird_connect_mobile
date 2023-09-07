@@ -55,14 +55,14 @@ class _RegisterState extends State<Register> {
         title: Wrap(
           spacing: 8.0,
           children: [
-            Image.asset('assets/images/Logo.png', height: 32.0),
+            Image.asset('assets/images/Logo.png', height: 32),
             const Text('iRD Connect'),
           ],
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
           child: Column(
@@ -72,7 +72,7 @@ class _RegisterState extends State<Register> {
                 'Register'.toUpperCase(),
                 style: StylesConfig.getTextStyleWithColor(context, 'h2', 'primary'),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               Row(children: [
                 Expanded(
                   child: TextFormField(
@@ -85,7 +85,7 @@ class _RegisterState extends State<Register> {
                     validator: (value) => _validateRequired(value, 'first name'),
                   ),
                 ),
-                const SizedBox(width: 8.0),
+                const SizedBox(width: 8),
                 Expanded(
                   child: TextFormField(
                     controller: _lastNameController,
@@ -98,7 +98,7 @@ class _RegisterState extends State<Register> {
                   ),
                 )
               ]),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _displayNameController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -108,7 +108,7 @@ class _RegisterState extends State<Register> {
                 ),
                 validator: (value) => _validateRequired(value, 'display name'),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -118,7 +118,7 @@ class _RegisterState extends State<Register> {
                 ),
                 validator: (value) => _validateRequired(value, 'email'),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -137,7 +137,7 @@ class _RegisterState extends State<Register> {
                 obscureText: _isHidePassword,
                 validator: (value) => _validateRequired(value, 'password'),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _confirmPasswordController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -156,7 +156,7 @@ class _RegisterState extends State<Register> {
                 obscureText: _isHidePassword,
                 validator: _validateConfirmPassword,
               ),
-              const SizedBox(height: 32.0),
+              const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {
                   _submit(context);
@@ -164,7 +164,7 @@ class _RegisterState extends State<Register> {
                 },
                 child: Text('Submit'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

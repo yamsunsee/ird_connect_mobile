@@ -16,7 +16,7 @@ class Wallet extends StatelessWidget {
             centerTitle: true,
           ),
           body: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: ListView(
               children: [
                 Text('Introduction', style: StylesConfig.getTextStyle('h6')),
@@ -28,31 +28,31 @@ class Wallet extends StatelessWidget {
                   'You can also change the name or id of the wallet according to your style.',
                   style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 16),
                 // const ListTile(
                 //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                //   horizontalTitleGap: -8.0,
+                //   horizontalTitleGap: -8,
                 //   leading: Icon(Icons.numbers),
                 //   title: Text('94f353b6-9999-4a81-Ba09-C63fb5778d02'),
                 //   subtitle: Text('Card ID'),
                 // ),
                 // const ListTile(
                 //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                //   horizontalTitleGap: -8.0,
+                //   horizontalTitleGap: -8,
                 //   leading: Icon(Icons.person),
                 //   title: Text('Pham The Hien'),
                 //   subtitle: Text('Name'),
                 // ),
                 // const ListTile(
                 //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                //   horizontalTitleGap: -8.0,
+                //   horizontalTitleGap: -8,
                 //   leading: Icon(Icons.stacked_line_chart),
                 //   title: Text('Active'),
                 //   subtitle: Text('Status'),
                 // ),
                 // const ListTile(
                 //   contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                //   horizontalTitleGap: -8.0,
+                //   horizontalTitleGap: -8,
                 //   leading: Icon(Icons.monetization_on),
                 //   title: Text('300 Credits'),
                 //   subtitle: Text('Balance'),
@@ -60,18 +60,18 @@ class Wallet extends StatelessWidget {
                 Card(
                   elevation: 4.0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.circular(16),
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.0),
+                      borderRadius: BorderRadius.circular(16),
                       gradient: const LinearGradient(
                         colors: [Colors.blue, Colors.indigo],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                     ),
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
                         ListTile(
@@ -133,19 +133,19 @@ class Wallet extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 16),
                 Text('Transactions', style: StylesConfig.getTextStyle('h6')),
                 Text(
                   'Including transactions on iRD Connect.',
                   style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: 16),
                 ListTile(
                   leading: const Icon(Icons.arrow_circle_left, color: Colors.red),
                   title: const Text('Paid for Web Check features'),
                   subtitle: const Text('12:00 - 11/08/2023'),
                   trailing: Text('- 50 Credits', style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
-                  horizontalTitleGap: -8.0,
+                  horizontalTitleGap: -8,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 ),
                 ListTile(
@@ -153,7 +153,7 @@ class Wallet extends StatelessWidget {
                   title: const Text('Topped-up credits to wallet'),
                   subtitle: const Text('20:00 - 10/08/2023'),
                   trailing: Text('+ 300 Credits', style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
-                  horizontalTitleGap: -8.0,
+                  horizontalTitleGap: -8,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 )
               ],

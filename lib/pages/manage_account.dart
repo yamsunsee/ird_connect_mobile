@@ -17,7 +17,7 @@ class _ManageAccountState extends State<ManageAccount> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             ListTile(
@@ -25,7 +25,7 @@ class _ManageAccountState extends State<ManageAccount> {
               title: const Text('Personal Information'),
               trailing: const Icon(Icons.more_vert),
               contentPadding: EdgeInsets.zero,
-              horizontalTitleGap: -8.0,
+              horizontalTitleGap: -8,
               onTap: () {
                 Navigator.pushNamed(context, RoutesConfig.information);
               },
@@ -35,7 +35,7 @@ class _ManageAccountState extends State<ManageAccount> {
                 title: const Text('Security'),
                 trailing: const Icon(Icons.more_vert),
                 contentPadding: EdgeInsets.zero,
-                horizontalTitleGap: -8.0,
+                horizontalTitleGap: -8,
                 onTap: () {
                   Navigator.pushNamed(context, RoutesConfig.security);
                 }),

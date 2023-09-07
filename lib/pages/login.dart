@@ -40,14 +40,14 @@ class _LoginState extends State<Login> {
         title: Wrap(
           spacing: 8.0,
           children: [
-            Image.asset('assets/images/Logo.png', height: 32.0),
+            Image.asset('assets/images/Logo.png', height: 32),
             const Text('iRD Connect'),
           ],
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
           child: Column(
@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
                   prefixIcon: Icon(Icons.email),
                 ),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 validator: (value) => _validateRequired(value, 'password'),
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
                 ),
                 obscureText: _isHidePassword,
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   TextButton.icon(
@@ -110,7 +110,7 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   _submit(context);
@@ -118,7 +118,7 @@ class _LoginState extends State<Login> {
                 },
                 child: Text('Submit'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

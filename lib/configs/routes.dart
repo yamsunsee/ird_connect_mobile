@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ird_connect/pages/index.dart';
+import 'package:ird_connect/pages/bugtrack/index.dart';
 
 class RoutesConfig {
   static const String home = '/';
@@ -12,6 +13,7 @@ class RoutesConfig {
   static const String account = '/manage_account';
   static const String security = '/manage_security';
   static const String information = '/manage_information';
+  static const String bugtrack = '/bugtrack';
 
   static Map<String, WidgetBuilder> initial(BuildContext context) {
     return {
@@ -25,6 +27,7 @@ class RoutesConfig {
       account: (context) => const ManageAccount(),
       security: (context) => const ManageSecurity(),
       information: (context) => const ManageInformation(),
+      bugtrack: (context) => const BugTrackHome(),
     };
   }
 }

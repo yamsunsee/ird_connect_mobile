@@ -16,17 +16,17 @@ class AppCard extends StatelessWidget {
       child: Card(
         child: Center(
           child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Image.asset(
                   'assets/images/${item.image}',
                   height: 48.0,
                 ),
-                const SizedBox(height: 8.0),
+                const SizedBox(height: 8),
                 Text(
                   item.title,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 8.0),
+                  style: const TextStyle(fontSize: 8),
                   // style: StylesConfig.getTextStyle('p'),
                 ),
               ])),

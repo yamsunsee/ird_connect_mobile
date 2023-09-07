@@ -19,12 +19,12 @@ class _SettingsState extends State<Settings> {
           centerTitle: true,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               ListTile(
                   onTap: theme.toggleMode,
-                  horizontalTitleGap: -8.0,
+                  horizontalTitleGap: -8,
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.dark_mode),
                   title: const Text('Dark Mode'),

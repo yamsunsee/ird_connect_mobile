@@ -28,19 +28,19 @@ class _OnboardingState extends State<Onboarding> {
                 },
                 children: VariablesConfig.onboardingPages.map((page) {
                   return Padding(
-                    padding: const EdgeInsets.all(32.0),
+                    padding: const EdgeInsets.all(32),
                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Text(
                         page.title.toUpperCase(),
                         style: StylesConfig.getTextStyleWithColor(context, 'h2', 'primary'),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 32.0),
+                      const SizedBox(height: 32),
                       Image.asset(
                         'assets/images/${page.image}',
                         height: 200,
                       ),
-                      const SizedBox(height: 32.0),
+                      const SizedBox(height: 32),
                       Text(
                         page.description,
                         style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
@@ -83,7 +83,7 @@ class _OnboardingState extends State<Onboarding> {
                       child: Text('NEXT', style: StylesConfig.getTextStyle('h6'))),
             ],
           ),
-          const SizedBox(height: 32.0),
+          const SizedBox(height: 32),
         ],
       ),
     );

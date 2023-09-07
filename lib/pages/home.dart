@@ -35,12 +35,12 @@ class _HomeState extends State<Home> {
             automaticallyImplyLeading: false,
             title: Wrap(
               spacing: 8.0,
-              children: [Image.asset('assets/images/Logo.png', height: 32.0), const Text('iRD Connect')],
+              children: [Image.asset('assets/images/Logo.png', height: 32), const Text('iRD Connect')],
             ),
             actions: [buildMenuOptions(context, user.isLoggedIn)],
           ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
                 Align(
@@ -86,17 +86,16 @@ class _HomeState extends State<Home> {
           .map(
             (option) => PopupMenuItem(
               child: ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, option.page);
-                  if (option.page == '/login') {
-                    UserService.logout(context);
-                  }
-                },
-                leading: Icon(option.icon),
-                title: Text(option.title),
-                horizontalTitleGap: -8.0,
-              ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, option.page);
+                    if (option.page == '/login') {
+                      UserService.logout(context);
+                    }
+                  },
+                  leading: Icon(option.icon),
+                  title: Text(option.title),
+                  horizontalTitleGap: -8),
             ),
           )
           .toList(),
@@ -136,7 +135,7 @@ class _HomeState extends State<Home> {
               selectedOption = index;
             });
           },
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
         );
       }).toList(),
     );
