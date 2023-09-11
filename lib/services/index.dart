@@ -4,6 +4,7 @@ import 'package:ird_connect/providers/index.dart';
 import 'package:provider/provider.dart';
 
 export 'user.dart';
+export 'bugtrack.dart';
 
 enum RequestMethod { getMethod, postMethod }
 

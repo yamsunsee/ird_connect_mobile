@@ -141,7 +141,7 @@ class Wallet extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 ListTile(
-                  leading: const Icon(Icons.arrow_circle_left, color: Colors.red),
+                  leading: Icon(Icons.arrow_circle_left, color: Colors.red.shade400),
                   title: const Text('Paid for Web Check features'),
                   subtitle: const Text('12:00 - 11/08/2023'),
                   trailing: Text('- 50 Credits', style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
@@ -149,7 +149,7 @@ class Wallet extends StatelessWidget {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 ),
                 ListTile(
-                  leading: const Icon(Icons.arrow_circle_right, color: Colors.green),
+                  leading: Icon(Icons.arrow_circle_right, color: Colors.green.shade400),
                   title: const Text('Topped-up credits to wallet'),
                   subtitle: const Text('20:00 - 10/08/2023'),
                   trailing: Text('+ 300 Credits', style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
