@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ird_connect/components/custom_text.dart';
 import 'package:ird_connect/configs/index.dart';
 import 'package:ird_connect/models/index.dart';
 import 'package:ird_connect/providers/index.dart';
@@ -25,10 +26,7 @@ class _AppDetailsState extends State<AppDetails> {
     return Consumer<UserProvider>(
       builder: (context, user, child) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(item.title),
-            centerTitle: true,
-          ),
+          appBar: AppBar(title: Text(item.title)),
           body: ListView(
             padding: const EdgeInsets.all(16),
             children: [
@@ -37,11 +35,19 @@ class _AppDetailsState extends State<AppDetails> {
                 height: 120,
               ),
               const SizedBox(height: 16),
-              Text(
-                item.title,
-                style: StylesConfig.getTextStyle('h6'),
+              CustomText(
+                text: item.title,
+                type: TextType.subtitle,
+                color: ColorType.secondary,
               ),
-              Text(item.brief, style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
+              Text(
+                item.brief,
+                style: StylesConfig.getTextStyleWithColor(
+                  context,
+                  'p',
+                  'secondary',
+                ),
+              ),
               ElevatedButton.icon(
                 onPressed: () {
                   user.isLoggedIn

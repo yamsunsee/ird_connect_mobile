@@ -21,9 +21,6 @@ class StylesConfig {
       case 'secondary':
         return themeColors.colorScheme.secondary;
 
-      case 'accent':
-        return themeColors.colorScheme.tertiary;
-
       default:
         throw Exception('Invalid color: $color');
     }

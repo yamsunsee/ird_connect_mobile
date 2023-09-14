@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ird_connect/components/index.dart';
 import 'package:ird_connect/configs/index.dart';
 import 'package:ird_connect/services/index.dart';
 
@@ -52,13 +53,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Wrap(
-          spacing: 8,
-          children: [
-            Image.asset('assets/images/Logo.png', height: 32),
-            const Text('iRD Connect'),
-          ],
-        ),
+        title: const Text('iRD Connect'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -68,9 +63,11 @@ class _RegisterState extends State<Register> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Register'.toUpperCase(),
-                style: StylesConfig.getTextStyleWithColor(context, 'h2', 'primary'),
+              const CustomText(
+                text: 'Register',
+                type: TextType.largeTitle,
+                color: ColorType.primary,
+                isUpperCase: true,
               ),
               const SizedBox(height: 16),
               Row(children: [

@@ -33,14 +33,16 @@ class _HomeState extends State<Home> {
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Wrap(
-              spacing: 8,
-              children: [Image.asset('assets/images/Logo.png', height: 32), const Text('iRD Connect')],
+            leading: Container(
+              margin: const EdgeInsets.only(left: 16),
+              child: Image.asset('assets/images/Logo.png'),
             ),
+            leadingWidth: 48,
+            title: const Text('iRD Connect'),
             actions: [buildMenuOptions(context, user.isLoggedIn)],
           ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Column(
               children: [
                 Align(
@@ -48,23 +50,55 @@ class _HomeState extends State<Home> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (user.isLoggedIn)
-                        Text('Welcome, ${user.information.displayName}!'.toUpperCase(),
-                            style: StylesConfig.getTextStyleWithColor(context, 'h4', 'accent')),
-                      Text('Connecting Strategies'.toUpperCase(),
-                          style: StylesConfig.getTextStyleWithColor(context, 'h3', 'primary')),
-                      Text('Fortifying Defenses'.toUpperCase(),
-                          style: StylesConfig.getTextStyleWithColor(context, 'h3', 'primary')),
-                      Text('Your Cybersecurity Partner'.toUpperCase(),
-                          style: StylesConfig.getTextStyleWithColor(context, 'h6', 'secondary')),
+                      Visibility(
+                        visible: user.isLoggedIn,
+                        child: CustomText(
+                          text: 'Welcome, ${user.information.displayName}!',
+                          type: TextType.subtitle,
+                          color: ColorType.primary,
+                          isUpperCase: true,
+                        ),
+                      ),
+                      const CustomText(
+                        text: 'Connecting Strategies',
+                        type: TextType.largeTitle,
+                        color: ColorType.primary,
+                        isUpperCase: true,
+                      ),
+                      const CustomText(
+                        text: 'Fortifying Defenses',
+                        type: TextType.largeTitle,
+                        color: ColorType.primary,
+                        isUpperCase: true,
+                      ),
+                      const CustomText(
+                        text: 'Your Cybersecurity Partner',
+                        type: TextType.subtitle,
+                        color: ColorType.paragraph,
+                        isUpperCase: true,
+                      ),
                       Visibility(
                         visible: !user.isLoggedIn,
                         child: TextButton.icon(
                           onPressed: () {
                             Navigator.pushNamed(context, RoutesConfig.register);
                           },
-                          icon: const Icon(Icons.add_moderator),
-                          label: const Text('Get started for free'),
+                          icon: ShaderMask(
+                            shaderCallback: (bounds) {
+                              return const LinearGradient(
+                                colors: [
+                                  Colors.lightBlueAccent,
+                                  Colors.blueAccent,
+                                ],
+                              ).createShader(bounds);
+                            },
+                            child: const Icon(Icons.add_moderator, color: Colors.white),
+                          ),
+                          label: const CustomText(
+                            text: 'Get started for free',
+                            type: TextType.description,
+                            color: ColorType.primary,
+                          ),
                         ),
                       ),
                     ],

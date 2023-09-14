@@ -17,7 +17,7 @@ class VariablesConfig {
     OnboardingPage(
       image: 'Onboarding03.png',
       title: 'Free credits \nto your wallet!',
-      description: 'Receive 300 free credits into your wallet immediately upon registration!',
+      description: 'Receive 300 free credits into \nyour wallet immediately upon registration!',
     ),
   ];
 
