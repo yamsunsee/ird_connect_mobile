@@ -4,7 +4,6 @@ class ThemesConfig {
   static ThemeData lightMode = ThemeData(
     fontFamily: 'Oswald',
     brightness: Brightness.light,
-    scaffoldBackgroundColor: Colors.grey.shade200,
     checkboxTheme: CheckboxThemeData(
       fillColor: MaterialStateColor.resolveWith((states) => Colors.blue),
     ),

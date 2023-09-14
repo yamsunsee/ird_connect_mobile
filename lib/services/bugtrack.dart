@@ -6,12 +6,22 @@ import 'package:ird_connect/providers/index.dart';
 
 class BugTrackService {
   static Future<void> getDashboard(BuildContext context) async {
-    final dashboard = Provider.of<BugTrackProvider>(context, listen: false);
+    final bugtrack = Provider.of<BugTrackProvider>(context, listen: false);
     await Services.sendRequest(
       context: context,
       method: RequestMethod.getMethod,
       url: UrlsConfig.bugTrackDashboard,
-      action: (data) => dashboard.setDashboard = data['data'],
+      action: (data) => bugtrack.setDashboard = data['data'],
+    );
+  }
+
+  static Future<void> getProjects(BuildContext context) async {
+    final bugtrack = Provider.of<BugTrackProvider>(context, listen: false);
+    await Services.sendRequest(
+      context: context,
+      method: RequestMethod.getMethod,
+      url: UrlsConfig.bugTrackDashboard,
+      action: (data) => bugtrack.setProjects = data['data'],
     );
   }
 }

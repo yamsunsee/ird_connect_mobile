@@ -36,11 +36,11 @@ class StylesConfig {
     );
   }
 
-  static TextStyle getTextStyleWithColor(BuildContext context, String type, String color) {
+  static TextStyle getTextStyleWithColor(BuildContext context, String type, String color, {bool isItalic = false}) {
     return TextStyle(
-      fontSize: defaultStyles[type]![0],
-      fontWeight: defaultStyles[type]![1],
-      color: getColor(context, color),
-    );
+        fontSize: defaultStyles[type]![0],
+        fontWeight: defaultStyles[type]![1],
+        color: getColor(context, color),
+        fontStyle: isItalic ? FontStyle.italic : FontStyle.normal);
   }
 }

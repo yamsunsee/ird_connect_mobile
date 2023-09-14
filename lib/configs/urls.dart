@@ -8,4 +8,6 @@ class UrlsConfig {
   static String userInformation = '${dotenv.get('RDIC_URL')}/identification-information';
 
   static String bugTrackDashboard = '${dotenv.get('BUGTRACK_URL')}/dashboard';
+
+  static String bugTrackProjects = '${dotenv.get('BUGTRACK_URL')}/all-project';
 }

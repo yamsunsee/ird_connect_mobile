@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:ird_connect/configs/index.dart';
+import 'package:ird_connect/models/bugtrack.dart';
 import 'package:ird_connect/providers/index.dart';
 import 'package:ird_connect/services/index.dart';
 import 'package:provider/provider.dart';
@@ -29,10 +32,10 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Consumer<BugTrackProvider>(
       builder: (context, bugtrack, child) {
-        final total = bugtrack.dashboard.criticalFindings +
-            bugtrack.dashboard.highFindings +
-            bugtrack.dashboard.mediumFindings +
-            bugtrack.dashboard.lowFindings;
+        if (bugtrack.dashboard.scoreBoard.isEmpty) {
+          return const Text('');
+        }
+
         final maxPage = (bugtrack.dashboard.scoreBoard.length / _numberPerPage).ceil();
 
         return Scaffold(
@@ -42,78 +45,42 @@ class _DashboardState extends State<Dashboard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Total'.toUpperCase(),
+                  'Statistics'.toUpperCase(),
                   style: StylesConfig.getTextStyle('h6'),
                 ),
-                ListTile(
-                  horizontalTitleGap: -8,
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.article),
-                  title: const Text('Projects'),
-                  trailing: Chip(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    label: Text(
-                      bugtrack.dashboard.projects.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    backgroundColor: Colors.indigo.shade400,
-                  ),
+                buildCard(
+                  'Projects',
+                  bugtrack.dashboard.projects,
+                  Icons.article,
+                  Colors.indigo.shade400,
                 ),
-                ListTile(
-                  horizontalTitleGap: -8,
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.document_scanner),
-                  title: const Text('Doing projects'),
-                  trailing: Chip(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    label: Text(
-                      bugtrack.dashboard.doingProjects.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    backgroundColor: Colors.purple.shade300,
-                  ),
+                buildCard(
+                  'Doing projects',
+                  bugtrack.dashboard.doingProjects,
+                  Icons.document_scanner,
+                  Colors.purple.shade400,
                 ),
-                ListTile(
-                  horizontalTitleGap: -8,
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.bug_report),
-                  title: const Text('Findings'),
-                  trailing: Chip(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    label: Text(
-                      bugtrack.dashboard.findings.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    backgroundColor: Colors.red.shade300,
-                  ),
+                buildCard(
+                  'Findings',
+                  bugtrack.dashboard.findings,
+                  Icons.bug_report,
+                  Colors.red.shade400,
                 ),
                 const SizedBox(height: 32),
                 Text(
-                  'Chart'.toUpperCase(),
+                  'Charts'.toUpperCase(),
                   style: StylesConfig.getTextStyle('h6'),
                 ),
                 const SizedBox(height: 16),
                 buildBarChart(bugtrack),
                 const SizedBox(height: 32),
-                buildPieChart(bugtrack, total),
+                buildPieChart(bugtrack.dashboard),
                 const SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Score board'.toUpperCase(),
+                      'Scoreboard'.toUpperCase(),
                       style: StylesConfig.getTextStyle('h6'),
                     ),
                     Row(
@@ -181,7 +148,35 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+  Widget buildCard(String title, int value, IconData icon, Color color) {
+    return ListTile(
+      horizontalTitleGap: -8,
+      contentPadding: EdgeInsets.zero,
+      leading: Icon(icon),
+      title: Text(title),
+      trailing: Chip(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        label: Text(
+          value.toString(),
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: color,
+      ),
+    );
+  }
+
   Widget buildBarChart(BugTrackProvider bugtrack) {
+    final maxValueLastYear =
+        bugtrack.dashboard.dataFindingLastYear.values.reduce((value, element) => value > element ? value : element);
+    final maxValueInYear =
+        bugtrack.dashboard.dataFindingInYear.values.reduce((value, element) => value > element ? value : element);
+    final maxValue = max(maxValueLastYear, maxValueInYear);
+    final maxY = (maxValue / 10).ceil() * 10 + 10;
+
     return SizedBox(
       height: 320,
       child: Column(
@@ -189,20 +184,50 @@ class _DashboardState extends State<Dashboard> {
           Expanded(
             child: LineChart(
               LineChartData(
-                gridData: const FlGridData(show: true),
-                titlesData: const FlTitlesData(
-                  leftTitles: AxisTitles(sideTitles: SideTitles(reservedSize: 32, showTitles: true)),
-                  rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                ),
-                borderData: FlBorderData(
-                  show: true,
-                  border: Border.all(color: const Color(0xff37434d), width: 1),
+                titlesData: FlTitlesData(
+                  leftTitles: const AxisTitles(sideTitles: SideTitles(reservedSize: 32, showTitles: true)),
+                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        switch (value.toInt()) {
+                          case 1:
+                            return const Text('Jan');
+                          case 2:
+                            return const Text('Feb');
+                          case 3:
+                            return const Text('Mar');
+                          case 4:
+                            return const Text('Apr');
+                          case 5:
+                            return const Text('May');
+                          case 6:
+                            return const Text('Jun');
+                          case 7:
+                            return const Text('Jul');
+                          case 8:
+                            return const Text('Aug');
+                          case 9:
+                            return const Text('Sep');
+                          case 10:
+                            return const Text('Oct');
+                          case 11:
+                            return const Text('Nov');
+                          case 12:
+                            return const Text('Dec');
+                          default:
+                            return const Text('');
+                        }
+                      },
+                    ),
+                  ),
                 ),
                 minX: 1,
                 maxX: 12,
                 minY: 0,
-                // maxY: 50,
+                maxY: maxY.toDouble(),
                 lineBarsData: [
                   LineChartBarData(
                     spots: bugtrack.dashboard.dataFindingLastYear.entries.map((entry) {
@@ -210,11 +235,9 @@ class _DashboardState extends State<Dashboard> {
                       final y = entry.value.toDouble();
                       return FlSpot(x, y);
                     }).toList(),
-                    isCurved: false,
                     barWidth: 8.0,
                     color: Colors.blue.shade400,
                     dotData: const FlDotData(show: false),
-                    belowBarData: BarAreaData(show: false),
                   ),
                   LineChartBarData(
                     spots: bugtrack.dashboard.dataFindingInYear.entries.map((entry) {
@@ -222,11 +245,9 @@ class _DashboardState extends State<Dashboard> {
                       final y = entry.value.toDouble();
                       return FlSpot(x, y);
                     }).toList(),
-                    isCurved: false,
                     barWidth: 8.0,
                     color: Colors.red.shade400,
                     dotData: const FlDotData(show: false),
-                    belowBarData: BarAreaData(show: false),
                   ),
                 ],
               ),
@@ -236,8 +257,8 @@ class _DashboardState extends State<Dashboard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              buildIndicator(Colors.red.shade400, 'Findings In Year'),
               buildIndicator(Colors.blue.shade400, 'Findings Last Year'),
+              buildIndicator(Colors.red.shade400, 'Findings In Year'),
             ],
           ),
         ],
@@ -245,7 +266,33 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget buildPieChart(BugTrackProvider bugtrack, int total) {
+  Widget buildPieChart(dynamic data, {bool isDetails = false}) {
+    late int critical = 0;
+    late int high = 0;
+    late int medium = 0;
+    late int low = 0;
+
+    if (isDetails) {
+      critical = data.criticalFinding;
+      high = data.highFinding;
+      medium = data.mediumFinding;
+      low = data.lowFinding;
+    } else {
+      critical = data.criticalFindings;
+      high = data.highFindings;
+      medium = data.mediumFindings;
+      low = data.lowFindings;
+    }
+
+    if (critical + high + medium + low < 1) {
+      return const Center(
+        child: Text(
+          'No data available',
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+      );
+    }
+
     return SizedBox(
       height: 240,
       child: Column(
@@ -258,8 +305,8 @@ class _DashboardState extends State<Dashboard> {
                 sections: [
                   PieChartSectionData(
                     color: Colors.purple.shade400,
-                    value: bugtrack.dashboard.criticalFindings.toDouble(),
-                    title: '${(bugtrack.dashboard.criticalFindings / total * 100).toStringAsFixed(0)}%',
+                    value: critical.toDouble(),
+                    title: critical.toString(),
                     radius: 50,
                     titleStyle: const TextStyle(
                       fontSize: 12,
@@ -269,8 +316,8 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   PieChartSectionData(
                     color: Colors.red.shade400,
-                    value: bugtrack.dashboard.highFindings.toDouble(),
-                    title: '${(bugtrack.dashboard.highFindings / total * 100).toStringAsFixed(0)}%',
+                    value: high.toDouble(),
+                    title: high.toString(),
                     radius: 50,
                     titleStyle: const TextStyle(
                       fontSize: 12,
@@ -280,8 +327,8 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   PieChartSectionData(
                     color: Colors.orange.shade400,
-                    value: bugtrack.dashboard.mediumFindings.toDouble(),
-                    title: '${(bugtrack.dashboard.mediumFindings / total * 100).toStringAsFixed(0)}%',
+                    value: medium.toDouble(),
+                    title: medium.toString(),
                     radius: 50,
                     titleStyle: const TextStyle(
                       fontSize: 12,
@@ -291,11 +338,11 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   PieChartSectionData(
                     color: Colors.amber.shade400,
-                    value: bugtrack.dashboard.lowFindings.toDouble(),
-                    title: '${(bugtrack.dashboard.lowFindings / total * 100).toStringAsFixed(0)}%',
+                    value: low.toDouble(),
+                    title: low.toString(),
                     radius: 50,
                     titleStyle: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -320,62 +367,144 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Widget buildScoreBoard(BugTrackProvider bugtrack, int currentPage, int numberPerPage) {
-    bugtrack.dashboard.scoreBoard.sort((a, b) => b['credit'].compareTo(a['credit']));
+    bugtrack.dashboard.scoreBoard.sort((a, b) => b.credit.compareTo(a.credit));
 
-    final List<Map<String, dynamic>> topRanking =
+    final List<ScoreBoard> topRanking =
         bugtrack.dashboard.scoreBoard.skip(currentPage * numberPerPage).take(numberPerPage).toList();
 
     return Column(
-      children: topRanking.asMap().entries.map((entry) {
-        final int rank = entry.key + currentPage * numberPerPage + 1;
-        final Map<String, dynamic> user = entry.value;
+      children: topRanking.asMap().entries.map(
+        (entry) {
+          final int rank = entry.key + currentPage * numberPerPage + 1;
+          final ScoreBoard scoreBoard = entry.value;
 
-        return ListTile(
-          contentPadding: const EdgeInsets.all(0),
-          leading: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                rank.toString(),
-                style: const TextStyle(color: Colors.grey),
-              ),
-              const SizedBox(width: 16),
-              CircleAvatar(
-                backgroundColor: StylesConfig.getColor(context, 'primary'),
-                child: Text(
-                  '${user['user_information']['first_name'][0]}${user['user_information']['last_name'][0]}',
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-          title: Text('${user['user_information']['first_name']} ${user['user_information']['last_name']}'),
-          subtitle: Text(user['user_information']['email']),
-          trailing: Chip(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            label: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  user['credit'].toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
+          return GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '${scoreBoard.userInformation.firstName} ${scoreBoard.userInformation.lastName}'
+                                  .toUpperCase(),
+                              style: StylesConfig.getTextStyleWithColor(context, 'h5', 'primary'),
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.workspace_premium,
+                                  color: Colors.amber.shade400,
+                                  size: 32,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  rank.toString(),
+                                  style: TextStyle(
+                                    color: Colors.amber.shade400,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Text(
+                          scoreBoard.userInformation.email,
+                          style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary', isItalic: true),
+                        ),
+                        buildCard(
+                          'Credits',
+                          scoreBoard.credit,
+                          Icons.monetization_on,
+                          Colors.green.shade400,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Statistics'.toUpperCase(),
+                          style: StylesConfig.getTextStyle('h6'),
+                        ),
+                        buildCard(
+                          'Projects',
+                          scoreBoard.project,
+                          Icons.article,
+                          Colors.indigo.shade400,
+                        ),
+                        buildCard(
+                          'Findings',
+                          scoreBoard.finding,
+                          Icons.bug_report,
+                          Colors.red.shade400,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Charts'.toUpperCase(),
+                          style: StylesConfig.getTextStyle('h6'),
+                        ),
+                        buildPieChart(scoreBoard, isDetails: true),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: ListTile(
+              contentPadding: const EdgeInsets.all(0),
+              leading: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    rank.toString(),
+                    style: const TextStyle(color: Colors.grey),
                   ),
+                  const SizedBox(width: 16),
+                  CircleAvatar(
+                    backgroundColor: StylesConfig.getColor(context, 'primary'),
+                    child: Text(
+                      '${scoreBoard.userInformation.firstName[0]}${scoreBoard.userInformation.lastName[0]}',
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              title: Text('${scoreBoard.userInformation.firstName} ${scoreBoard.userInformation.lastName}'),
+              subtitle: Text(scoreBoard.userInformation.email),
+              trailing: Chip(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const SizedBox(width: 4),
-                const Icon(
-                  Icons.monetization_on,
-                  size: 16,
-                  color: Colors.white,
-                )
-              ],
+                label: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      scoreBoard.credit.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Icon(
+                      Icons.monetization_on,
+                      size: 16,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+                backgroundColor: Colors.green.shade300,
+              ),
             ),
-            backgroundColor: Colors.green.shade300,
-          ),
-        );
-      }).toList(),
+          );
+        },
+      ).toList(),
     );
   }
 }
