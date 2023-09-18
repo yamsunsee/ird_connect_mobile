@@ -65,8 +65,8 @@ class _RegisterState extends State<Register> {
             children: [
               const CustomText(
                 text: 'Register',
-                type: TextType.largeTitle,
-                color: ColorType.primary,
+                type: TextType.extraLargeTitle,
+                color: ColorType.gradient,
                 isUpperCase: true,
               ),
               const SizedBox(height: 16),
@@ -89,7 +89,6 @@ class _RegisterState extends State<Register> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       labelText: 'Last Name',
-                      // prefixIcon: Icon(Icons.person),
                     ),
                     validator: (value) => _validateRequired(value, 'last name'),
                   ),
@@ -154,18 +153,20 @@ class _RegisterState extends State<Register> {
                 validator: _validateConfirmPassword,
               ),
               const SizedBox(height: 32),
-              ElevatedButton(
+              CustomButton(
+                text: 'Submit',
                 onPressed: () {
                   _submit(context);
-                  // Navigator.pushNamed(context, RoutesConfig.home);
                 },
-                child: Text('Submit'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),
               ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Already have an account?'),
+                  const CustomText(
+                    text: 'Already have an account?',
+                    color: ColorType.paragraph,
+                  ),
                   TextButton(
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, RoutesConfig.login);

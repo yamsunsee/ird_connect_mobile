@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ird_connect/components/index.dart';
 import 'package:ird_connect/configs/index.dart';
 import 'package:ird_connect/models/index.dart';
 
@@ -13,23 +14,27 @@ class AppCard extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, RoutesConfig.details, arguments: item);
       },
-      child: Card(
-        child: Center(
-          child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Image.asset(
-                  'assets/images/${item.image}',
-                  height: 48,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  item.title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 8),
-                  // style: StylesConfig.getTextStyle('p'),
-                ),
-              ])),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.tertiary,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/${item.image}',
+              height: 48,
+            ),
+            const SizedBox(height: 8),
+            CustomText(
+              customSize: 8,
+              text: item.title,
+              align: TextAlign.center,
+              color: ColorType.secondary,
+              customWeight: FontWeight.bold,
+            ),
+          ],
         ),
       ),
     );

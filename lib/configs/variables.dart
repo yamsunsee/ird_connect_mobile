@@ -74,7 +74,7 @@ class VariablesConfig {
 
   static List<App> apps = [
     App(
-      title: 'HPT AppScan',
+      title: 'AppScan',
       type: 'App',
       brief: 'Scan vulnerability on your public application(s) and server(s).',
       image: 'AppScan.png',
@@ -106,7 +106,7 @@ class VariablesConfig {
       url: '',
     ),
     App(
-      title: 'HPT BugTrack Platform',
+      title: 'BugTrack Platform',
       type: 'App',
       brief: 'The platform tracks and manages project(s), project scope, and submits vulnerabilities you find.',
       image: 'BugTrack.png',
@@ -138,7 +138,7 @@ class VariablesConfig {
       url: RoutesConfig.bugtrack,
     ),
     App(
-      title: 'HPT Mavex',
+      title: 'Mavex',
       type: 'App',
       brief: 'Detect and analyze anomalies on your server(s).',
       image: 'Mavex.png',
@@ -168,7 +168,7 @@ class VariablesConfig {
       url: '',
     ),
     App(
-      title: 'HPT MyBugTrack',
+      title: 'My BugTrack',
       type: 'App',
       brief: 'Tracking identified vulnerabilities and the vulnerability remediation process across your applications.',
       image: 'MyBugTrack.png',
@@ -209,7 +209,7 @@ class VariablesConfig {
 
   static List<App> aiApps = [
     App(
-      title: 'HPT Malware Detection',
+      title: 'Malware Detection',
       type: 'AI App',
       brief: 'Detect malicious code based on artificial intelligence technology.',
       image: 'MalwareDetection.png',
@@ -224,7 +224,7 @@ class VariablesConfig {
       url: '',
     ),
     App(
-      title: 'HPT Malware Analysis',
+      title: 'Malware Analysis',
       type: 'AI App',
       brief: 'Analyze malicious code based on artificial intelligence signature.',
       image: 'MalwareAnalysis.png',
@@ -239,7 +239,7 @@ class VariablesConfig {
       url: '',
     ),
     App(
-      title: 'HPT Web Vulnerability Detection',
+      title: 'Web Vulnerability Detection',
       type: 'AI App',
       brief: 'Detects common vulnerabilities in web applications based on artificial intelligence technology.',
       image: 'WebVulnerabilityDetection.png',

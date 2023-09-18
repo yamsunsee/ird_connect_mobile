@@ -23,15 +23,16 @@ class _SettingsState extends State<Settings> {
           child: Column(
             children: [
               ListTile(
-                  onTap: theme.toggleMode,
-                  horizontalTitleGap: -8,
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.dark_mode),
-                  title: const Text('Dark Mode'),
-                  trailing: Switch(
-                    onChanged: theme.setMode,
-                    value: theme.isDark,
-                  ))
+                onTap: theme.toggleMode,
+                horizontalTitleGap: -8,
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.dark_mode),
+                title: const Text('Dark Mode'),
+                trailing: Switch(
+                  onChanged: theme.setMode,
+                  value: theme.isDark,
+                ),
+              ),
             ],
           ),
         ),

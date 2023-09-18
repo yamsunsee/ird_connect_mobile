@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum ColorType { primary, secondary, paragraph, custom }
+enum ColorType { gradient, primary, secondary, paragraph, custom }
 
 enum TextType { extraLargeTitle, largeTitle, title, subtitle, description, custom }
 
@@ -45,7 +45,7 @@ class CustomText extends StatelessWidget {
         break;
 
       case ColorType.paragraph:
-        currentColor = themeColors.colorScheme.tertiary;
+        currentColor = Colors.grey;
         break;
 
       default:
@@ -55,7 +55,7 @@ class CustomText extends StatelessWidget {
     switch (type) {
       case TextType.extraLargeTitle:
         currentWeight = FontWeight.bold;
-        currentSize = 36;
+        currentSize = 32;
         break;
 
       case TextType.largeTitle:
@@ -82,7 +82,7 @@ class CustomText extends StatelessWidget {
         break;
     }
 
-    if (color == ColorType.primary) {
+    if (color == ColorType.gradient) {
       return ShaderMask(
         shaderCallback: (bounds) {
           return const LinearGradient(

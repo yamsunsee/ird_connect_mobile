@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ird_connect/components/index.dart';
 import 'package:ird_connect/configs/index.dart';
 import 'package:ird_connect/services/index.dart';
 
@@ -37,13 +38,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Wrap(
-          spacing: 8,
-          children: [
-            Image.asset('assets/images/Logo.png', height: 32),
-            const Text('iRD Connect'),
-          ],
-        ),
+        title: const Text('iRD Connect'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -53,10 +48,13 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Login'.toUpperCase(),
-                style: StylesConfig.getTextStyleWithColor(context, 'h2', 'primary'),
+              const CustomText(
+                text: 'Login',
+                type: TextType.extraLargeTitle,
+                color: ColorType.gradient,
+                isUpperCase: true,
               ),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _emailController,
                 validator: (value) => _validateRequired(value, 'email'),
@@ -89,40 +87,42 @@ class _LoginState extends State<Login> {
               Row(
                 children: [
                   TextButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          _isRememberMe = !_isRememberMe;
-                        });
-                      },
-                      icon: Icon(_isRememberMe ? Icons.check_box : Icons.check_box_outline_blank,
-                          color: StylesConfig.getColor(context, _isRememberMe ? 'primary' : 'secondary')),
-                      label: Text(
-                        'Remember Me',
-                        style:
-                            StylesConfig.getTextStyleWithColor(context, 'p', _isRememberMe ? 'primary' : 'secondary'),
-                      )),
+                    onPressed: () {
+                      setState(() {
+                        _isRememberMe = !_isRememberMe;
+                      });
+                    },
+                    icon: Icon(
+                      _isRememberMe ? Icons.check_box : Icons.check_box_outline_blank,
+                      color: _isRememberMe ? Theme.of(context).colorScheme.primary : Colors.grey,
+                    ),
+                    label: CustomText(
+                      text: 'Remember Me',
+                      color: _isRememberMe ? ColorType.primary : ColorType.paragraph,
+                    ),
+                  ),
                   const Spacer(),
                   TextButton(
-                    onPressed: () {
-                      // TODO: Forgot password function
-                    },
+                    onPressed: () {},
                     child: const Text('Forget Password?'),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              ElevatedButton(
+              CustomButton(
+                text: 'Submit',
                 onPressed: () {
                   _submit(context);
-                  // Navigator.pushNamed(context, RoutesConfig.home);
                 },
-                child: Text('Submit'.toUpperCase(), style: StylesConfig.getTextStyle('h6')),
               ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Do not have an account?'),
+                  const CustomText(
+                    text: 'Do not have an account?',
+                    color: ColorType.paragraph,
+                  ),
                   TextButton(
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, RoutesConfig.register);

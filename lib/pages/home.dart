@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ird_connect/components/index.dart';
-import 'package:ird_connect/configs/index.dart';
-import 'package:ird_connect/models/index.dart';
-import 'package:ird_connect/providers/index.dart';
-import 'package:ird_connect/services/index.dart';
 import 'package:provider/provider.dart';
+import 'package:ird_connect/models/index.dart';
+import 'package:ird_connect/configs/index.dart';
+import 'package:ird_connect/services/index.dart';
+import 'package:ird_connect/providers/index.dart';
+import 'package:ird_connect/components/index.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,17 +13,26 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   int selectedOption = 0;
+  late TabController _tabController;
 
   @override
   void initState() {
-    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
 
     Future.delayed(Duration.zero, () {
       final isLoggedIn = Provider.of<UserProvider>(context, listen: false).isLoggedIn;
       if (isLoggedIn) UserService.getInformation(context);
     });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -44,69 +53,13 @@ class _HomeState extends State<Home> {
           body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Visibility(
-                        visible: user.isLoggedIn,
-                        child: CustomText(
-                          text: 'Welcome, ${user.information.displayName}!',
-                          type: TextType.subtitle,
-                          color: ColorType.primary,
-                          isUpperCase: true,
-                        ),
-                      ),
-                      const CustomText(
-                        text: 'Connecting Strategies',
-                        type: TextType.largeTitle,
-                        color: ColorType.primary,
-                        isUpperCase: true,
-                      ),
-                      const CustomText(
-                        text: 'Fortifying Defenses',
-                        type: TextType.largeTitle,
-                        color: ColorType.primary,
-                        isUpperCase: true,
-                      ),
-                      const CustomText(
-                        text: 'Your Cybersecurity Partner',
-                        type: TextType.subtitle,
-                        color: ColorType.paragraph,
-                        isUpperCase: true,
-                      ),
-                      Visibility(
-                        visible: !user.isLoggedIn,
-                        child: TextButton.icon(
-                          onPressed: () {
-                            Navigator.pushNamed(context, RoutesConfig.register);
-                          },
-                          icon: ShaderMask(
-                            shaderCallback: (bounds) {
-                              return const LinearGradient(
-                                colors: [
-                                  Colors.lightBlueAccent,
-                                  Colors.blueAccent,
-                                ],
-                              ).createShader(bounds);
-                            },
-                            child: const Icon(Icons.add_moderator, color: Colors.white),
-                          ),
-                          label: const CustomText(
-                            text: 'Get started for free',
-                            type: TextType.description,
-                            color: ColorType.primary,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Image.asset('assets/images/Onboarding.png', height: 120),
-                buildFilterOptions(context),
-                buildAppCards(),
+                buildBanner(user),
+                const SizedBox(height: 8),
+                buildTabBar(context),
+                const SizedBox(height: 8),
+                buildTabBarView(context),
               ],
             ),
           ),
@@ -119,10 +72,11 @@ class _HomeState extends State<Home> {
     final options = isLoggedIn ? VariablesConfig.menuOptions : VariablesConfig.guestMenuOptions;
     return PopupMenuButton(
       icon: const Icon(Icons.menu),
-      itemBuilder: (context) => options
-          .map(
-            (option) => PopupMenuItem(
-              child: ListTile(
+      itemBuilder: (context) {
+        return options
+            .map(
+              (option) => PopupMenuItem(
+                child: ListTile(
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.pushNamed(context, option.page);
@@ -132,64 +86,162 @@ class _HomeState extends State<Home> {
                   },
                   leading: Icon(option.icon),
                   title: Text(option.title),
-                  horizontalTitleGap: -8),
-            ),
-          )
-          .toList(),
+                  horizontalTitleGap: -8,
+                ),
+              ),
+            )
+            .toList();
+      },
     );
   }
 
-  Widget buildFilterOptions(BuildContext context) {
-    return Wrap(
-      spacing: 4,
-      children: VariablesConfig.filterOptions.asMap().entries.map((entry) {
-        int index = entry.key;
-        FilterOption option = entry.value;
-        int count = index == 1
-            ? VariablesConfig.apps.length
-            : index == 2
-                ? VariablesConfig.aiApps.length
-                : VariablesConfig.apps.length + VariablesConfig.aiApps.length;
+  Widget buildAppCards({String type = 'all'}) {
+    late List<App> cards;
 
-        return ActionChip(
-          label: Text(
-            '${option.title} ($count)',
-            style: TextStyle(
-              color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary'),
-              fontSize: 12,
-            ),
-          ),
-          avatar: Icon(
-            option.icon,
-            size: 16,
-            color: selectedOption == index ? Colors.white : StylesConfig.getColor(context, 'primary'),
-          ),
-          backgroundColor: selectedOption == index
-              ? StylesConfig.getColor(context, 'primary')
-              : StylesConfig.getColor(context, 'primary').withAlpha(50),
-          onPressed: () {
-            setState(() {
-              selectedOption = index;
-            });
-          },
-          padding: const EdgeInsets.all(8),
-        );
-      }).toList(),
-    );
-  }
+    switch (type) {
+      case 'apps':
+        cards = VariablesConfig.apps;
+        break;
 
-  Widget buildAppCards() {
-    List<App> cards = selectedOption == 1
-        ? VariablesConfig.apps
-        : selectedOption == 2
-            ? VariablesConfig.aiApps
-            : [...VariablesConfig.apps, ...VariablesConfig.aiApps];
+      case 'aiApps':
+        cards = VariablesConfig.aiApps;
+        break;
+
+      default:
+        cards = [...VariablesConfig.apps, ...VariablesConfig.aiApps];
+        break;
+    }
 
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 3,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
+      padding: const EdgeInsets.all(4),
       physics: const NeverScrollableScrollPhysics(),
       children: cards.map((app) => AppCard(item: app)).toList(),
+    );
+  }
+
+  Widget buildBanner(UserProvider user) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        user.isLoggedIn
+            ? TextButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, RoutesConfig.information);
+                },
+                icon: const CustomIcon(icon: Icons.ads_click_rounded),
+                label: CustomText(
+                  text: 'Welcome, ${user.information.displayName}!',
+                  color: ColorType.gradient,
+                  isItalic: true,
+                ),
+              )
+            : TextButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, RoutesConfig.register);
+                },
+                icon: const CustomIcon(icon: Icons.add_moderator),
+                label: const CustomText(
+                  text: 'Get started for free!',
+                  color: ColorType.gradient,
+                  isItalic: true,
+                ),
+              ),
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.tertiary,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CustomText(
+                    text: 'Connecting \nStrategies,',
+                    type: TextType.title,
+                    color: ColorType.gradient,
+                    isUpperCase: true,
+                  ),
+                  const CustomText(
+                    text: 'Fortifying Defenses',
+                    type: TextType.title,
+                    color: ColorType.gradient,
+                    isUpperCase: true,
+                  ),
+                  CustomText(
+                    text: 'Your Cybersecurity Partner',
+                    customColor: Colors.purple.shade300,
+                    isUpperCase: true,
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: -32,
+              right: 16,
+              child: Image.asset('assets/images/Onboarding.png', height: 100),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget buildTabBar(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.tertiary,
+        borderRadius: BorderRadius.circular(32),
+      ),
+      child: TabBar(
+        controller: _tabController,
+        indicator: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [
+              Colors.blueAccent,
+              Colors.lightBlueAccent,
+            ],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          ),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        labelPadding: const EdgeInsets.all(8),
+        labelColor: Colors.white,
+        unselectedLabelColor: Theme.of(context).colorScheme.primary,
+        tabs: VariablesConfig.filterOptions.map((item) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(item.icon, size: 16),
+              const SizedBox(width: 4),
+              Text(item.title),
+            ],
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget buildTabBarView(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height - kToolbarHeight - 300,
+      child: TabBarView(
+        controller: _tabController,
+        children: [
+          buildAppCards(),
+          buildAppCards(type: 'apps'),
+          buildAppCards(type: 'aiApps'),
+        ],
+      ),
     );
   }
 }

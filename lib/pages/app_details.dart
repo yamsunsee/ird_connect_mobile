@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ird_connect/components/custom_button.dart';
+import 'package:ird_connect/components/custom_icon.dart';
 import 'package:ird_connect/components/custom_text.dart';
 import 'package:ird_connect/configs/index.dart';
 import 'package:ird_connect/models/index.dart';
@@ -37,41 +39,49 @@ class _AppDetailsState extends State<AppDetails> {
               const SizedBox(height: 16),
               CustomText(
                 text: item.title,
-                type: TextType.subtitle,
+                type: TextType.title,
                 color: ColorType.secondary,
               ),
-              Text(
-                item.brief,
-                style: StylesConfig.getTextStyleWithColor(
-                  context,
-                  'p',
-                  'secondary',
-                ),
+              CustomText(
+                text: item.brief,
+                type: TextType.description,
+                color: ColorType.paragraph,
               ),
-              ElevatedButton.icon(
+              const SizedBox(height: 16),
+              CustomButton(
+                prefixIcon:
+                    user.isLoggedIn ? (item.url.isNotEmpty ? Icons.developer_board : Icons.construction) : Icons.login,
+                text: user.isLoggedIn ? (item.url.isNotEmpty ? 'Launch' : 'Developing') : 'Login',
                 onPressed: () {
                   user.isLoggedIn
                       ? (item.url.isNotEmpty ? Navigator.pushNamed(context, item.url) : Navigator.pop(context))
                       : Navigator.pushNamed(context, RoutesConfig.login);
                 },
-                icon: Icon(
-                    user.isLoggedIn ? (item.url.isNotEmpty ? Icons.developer_board : Icons.construction) : Icons.login),
-                label: Text(
-                  user.isLoggedIn
-                      ? (item.url.isNotEmpty
-                          ? 'Launch application'.toUpperCase()
-                          : 'Application is in development state'.toUpperCase())
-                      : 'Login to launch application'.toUpperCase(),
-                ),
               ),
-              const Divider(),
-              Text('Introduction', style: StylesConfig.getTextStyle('h6')),
-              Text(item.description, style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary')),
               const SizedBox(height: 16),
-              Text('Features', style: StylesConfig.getTextStyle('h6')),
+              const CustomText(
+                text: 'Introduction',
+                type: TextType.subtitle,
+                color: ColorType.secondary,
+              ),
+              CustomText(
+                text: item.description,
+                type: TextType.description,
+                color: ColorType.paragraph,
+              ),
+              const SizedBox(height: 16),
+              const CustomText(
+                text: 'Features',
+                type: TextType.subtitle,
+                color: ColorType.secondary,
+              ),
               buildFeatures(context, item.features),
               const SizedBox(height: 16),
-              Text(item.type == 'App' ? 'Production Team' : 'Research Team', style: StylesConfig.getTextStyle('h6')),
+              CustomText(
+                text: item.type == 'App' ? 'Production Team' : 'Research Team',
+                type: TextType.subtitle,
+                color: ColorType.secondary,
+              ),
               buildTeam(context, item.team),
             ],
           ),
@@ -85,31 +95,22 @@ class _AppDetailsState extends State<AppDetails> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: features.map(
         (feature) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.stars,
-                color: StylesConfig.getColor(context, 'primary'),
-              ),
-              const SizedBox(width: 4),
-              Expanded(
-                child: Text(
-                  feature,
-                  style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              children: [
+                const CustomIcon(icon: Icons.stars),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: CustomText(
+                    text: feature,
+                    type: TextType.description,
+                    color: ColorType.paragraph,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
-          // ListTile(
-          //   contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-          //   leading: Icon(Icons.check_circle, color: StylesConfig.getColor(context, 'primary')),
-          //   horizontalTitleGap: -8,
-          //   title: Text(
-          //     feature,
-          //     style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
-          //   ),
-          // );
         },
       ).toList(),
     );
@@ -119,9 +120,10 @@ class _AppDetailsState extends State<AppDetails> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: team.entries.map((entry) {
-        return Text(
-          '${entry.key}: ${entry.value.join(', ')}',
-          style: StylesConfig.getTextStyleWithColor(context, 'p', 'secondary'),
+        return CustomText(
+          text: '${entry.key}: ${entry.value.join(', ')}',
+          color: ColorType.paragraph,
+          type: TextType.description,
         );
       }).toList(),
     );

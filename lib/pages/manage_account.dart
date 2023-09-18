@@ -30,6 +30,7 @@ class _ManageAccountState extends State<ManageAccount> {
                 Navigator.pushNamed(context, RoutesConfig.information);
               },
             ),
+            const Divider(height: 1),
             ListTile(
                 leading: const Icon(Icons.security),
                 title: const Text('Security'),

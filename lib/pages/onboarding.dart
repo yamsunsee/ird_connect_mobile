@@ -38,7 +38,11 @@ class _OnboardingState extends State<Onboarding> {
                 activeDotColor: Colors.blue.shade50,
               ),
               onDotClicked: (index) {
-                _controller.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+                _controller.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeOut,
+                );
               },
             ),
           ),
@@ -61,7 +65,7 @@ class _OnboardingState extends State<Onboarding> {
                     CustomText(
                       text: page.title,
                       isUpperCase: true,
-                      color: ColorType.primary,
+                      color: ColorType.gradient,
                       type: TextType.extraLargeTitle,
                       align: TextAlign.center,
                     ),
@@ -70,6 +74,7 @@ class _OnboardingState extends State<Onboarding> {
                       text: page.description,
                       color: ColorType.paragraph,
                       align: TextAlign.center,
+                      isItalic: true,
                     ),
                   ],
                 );
@@ -78,8 +83,10 @@ class _OnboardingState extends State<Onboarding> {
           ),
           Positioned(
             bottom: 40,
-            child: GestureDetector(
-              onTap: () {
+            child: CustomButton(
+              text: _isLastPage ? 'Explore now' : 'Next',
+              width: 240,
+              onPressed: () {
                 _isLastPage
                     ? Navigator.pop(context)
                     : _controller.nextPage(
@@ -87,39 +94,22 @@ class _OnboardingState extends State<Onboarding> {
                         curve: Curves.easeOut,
                       );
               },
-              child: Container(
-                width: 240,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [
-                      Colors.blueAccent,
-                      Colors.lightBlueAccent,
-                    ],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomText(
-                      text: _isLastPage ? 'Explore now' : 'Next',
-                      customColor: Colors.white,
-                      type: TextType.subtitle,
-                      isUpperCase: true,
-                    ),
-                    const SizedBox(width: 4),
-                    const Icon(
-                      Icons.arrow_right_alt_rounded,
-                      color: Colors.white,
-                    )
-                  ],
-                ),
-              ),
+              suffixIcon: Icons.arrow_right_alt_rounded,
             ),
           ),
+          // Visibility(
+          //   visible: _isLastPage,
+          //   child: Positioned(
+          //     bottom: 20,
+          //     child: TextButton(
+          //       onPressed: () {},
+          //       child: const CustomText(
+          //         text: 'Do not show again',
+          //         color: ColorType.paragraph,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
