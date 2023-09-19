@@ -159,6 +159,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.tertiary,
                 borderRadius: BorderRadius.circular(16),
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).scaffoldBackgroundColor,
+                    Theme.of(context).colorScheme.tertiary,
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,7 +207,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.tertiary,
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: BorderRadius.circular(16),
+        gradient: LinearGradient(
+          colors: [
+            Theme.of(context).colorScheme.tertiary,
+            Theme.of(context).scaffoldBackgroundColor,
+          ],
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+        ),
       ),
       child: TabBar(
         controller: _tabController,

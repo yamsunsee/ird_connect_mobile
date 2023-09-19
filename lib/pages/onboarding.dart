@@ -86,6 +86,7 @@ class _OnboardingState extends State<Onboarding> {
             child: CustomButton(
               text: _isLastPage ? 'Explore now' : 'Next',
               width: 240,
+              size: SizeType.large,
               onPressed: () {
                 _isLastPage
                     ? Navigator.pop(context)

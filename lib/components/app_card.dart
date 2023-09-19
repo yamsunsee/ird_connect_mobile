@@ -16,8 +16,16 @@ class AppCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.tertiary,
+          // color: Theme.of(context).colorScheme.tertiary,
           borderRadius: BorderRadius.circular(16),
+          gradient: LinearGradient(
+            colors: [
+              Theme.of(context).scaffoldBackgroundColor,
+              Theme.of(context).colorScheme.tertiary,
+            ],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ird_connect/components/custom_text.dart';
 
+enum SizeType { normal, large }
+
 class CustomButton extends StatelessWidget {
   final String text;
+  final SizeType size;
   final double spacing;
   final bool isWidthFit;
   final Function onPressed;
@@ -16,6 +19,7 @@ class CustomButton extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.spacing = 4,
+    this.size = SizeType.normal,
     this.isWidthFit = false,
     required this.text,
     required this.onPressed,
@@ -40,7 +44,7 @@ class CustomButton extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(32),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 32),
+        padding: EdgeInsets.all(size == SizeType.large ? 12 : 8),
         child: Row(
           mainAxisSize: isWidthFit ? MainAxisSize.min : MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +64,8 @@ class CustomButton extends StatelessWidget {
             CustomText(
               text: text,
               customColor: Colors.white,
-              type: TextType.subtitle,
+              type: size == SizeType.large ? TextType.subtitle : TextType.custom,
+              customWeight: FontWeight.w500,
               isUpperCase: true,
             ),
             Visibility(

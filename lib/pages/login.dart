@@ -104,13 +104,17 @@ class _LoginState extends State<Login> {
                   const Spacer(),
                   TextButton(
                     onPressed: () {},
-                    child: const Text('Forget Password?'),
+                    child: const CustomText(
+                      text: 'Forget Password?',
+                      color: ColorType.primary,
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
               CustomButton(
                 text: 'Submit',
+                size: SizeType.large,
                 onPressed: () {
                   _submit(context);
                 },
@@ -127,7 +131,11 @@ class _LoginState extends State<Login> {
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, RoutesConfig.register);
                     },
-                    child: const Text('Register'),
+                    child: const CustomText(
+                      text: 'Register',
+                      color: ColorType.primary,
+                      customWeight: FontWeight.w500,
+                    ),
                   ),
                 ],
               ),

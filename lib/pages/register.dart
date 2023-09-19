@@ -155,6 +155,7 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 32),
               CustomButton(
                 text: 'Submit',
+                size: SizeType.large,
                 onPressed: () {
                   _submit(context);
                 },
@@ -171,7 +172,11 @@ class _RegisterState extends State<Register> {
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, RoutesConfig.login);
                     },
-                    child: const Text('Login'),
+                    child: const CustomText(
+                      text: 'Login',
+                      color: ColorType.primary,
+                      customWeight: FontWeight.w500,
+                    ),
                   ),
                 ],
               ),
