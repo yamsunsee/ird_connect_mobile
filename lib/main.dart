@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:ird_connect/configs/index.dart';
 import 'package:ird_connect/providers/index.dart';
@@ -17,11 +18,28 @@ class PostHttpOverrides extends HttpOverrides {
 Future<void> main() async {
   HttpOverrides.global = PostHttpOverrides();
   await dotenv.load(fileName: '.env');
+  await Hive.initFlutter();
+  await Hive.openBox('iRD');
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late bool _isVisited = true;
+  final _localStorage = Hive.box('iRD');
+
+  @override
+  void initState() {
+    _isVisited = _localStorage.get('isVisited') ?? false;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +56,7 @@ class MyApp extends StatelessWidget {
           themeMode: theme.mode,
           theme: ThemesConfig.lightMode,
           darkTheme: ThemesConfig.darkMode,
-          initialRoute: RoutesConfig.onboarding,
+          initialRoute: _isVisited ? RoutesConfig.home : RoutesConfig.onboarding,
           routes: RoutesConfig.initial(context),
         ),
       ),

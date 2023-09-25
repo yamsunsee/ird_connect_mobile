@@ -76,7 +76,7 @@ class Wallet extends StatelessWidget {
                       children: [
                         ListTile(
                           title: Text(
-                            '${user.information.firstName} ${user.information.lastName}'.toUpperCase(),
+                            user.information.fullName.toUpperCase(),
                             style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
                           ),
                           subtitle: const Text(

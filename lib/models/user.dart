@@ -18,6 +18,8 @@ class User {
   late String walletStatus;
   late String status;
 
+  String get fullName => '$firstName $lastName';
+
   void updateInformation(Map<String, dynamic> newInformation) {
     clientUuid = newInformation['client_uuid'] ?? '';
     firstName = newInformation['first_name'] ?? '';

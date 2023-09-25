@@ -6,6 +6,9 @@ class UserInformation {
 
   UserInformation();
 
+  String get shortName => firstName[0] + lastName[0];
+  String get fullName => '$firstName $lastName';
+
   factory UserInformation.fromJson(Map<String, dynamic> json) {
     final userInfo = UserInformation();
     userInfo.uuid = json['uuid'] ?? '';

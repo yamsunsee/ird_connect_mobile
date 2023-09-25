@@ -104,7 +104,7 @@ class Services {
         throw data['message'];
       }
     } catch (errors) {
-      handleError(context, errors);
+      if (context.mounted) handleError(context, errors);
     }
   }
 }

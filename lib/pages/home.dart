@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ird_connect/models/index.dart';
 import 'package:ird_connect/configs/index.dart';
@@ -14,8 +15,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  int selectedOption = 0;
   late TabController _tabController;
+  final _localStorage = Hive.box('iRD');
+  late bool _isVisited = false;
+  late int _count = 0;
 
   @override
   void initState() {
@@ -25,6 +28,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       final isLoggedIn = Provider.of<UserProvider>(context, listen: false).isLoggedIn;
       if (isLoggedIn) UserService.getInformation(context);
     });
+
+    _isVisited = _localStorage.get('isVisited') ?? false;
+    if (!_isVisited) _localStorage.put('isVisited', true);
 
     super.initState();
   }
@@ -127,29 +133,35 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        user.isLoggedIn
-            ? TextButton.icon(
-                onPressed: () {
-                  Navigator.pushNamed(context, RoutesConfig.information);
-                },
-                icon: const CustomIcon(icon: Icons.ads_click_rounded),
-                label: CustomText(
-                  text: 'Welcome, ${user.information.displayName}!',
-                  color: ColorType.gradient,
-                  isItalic: true,
-                ),
-              )
-            : TextButton.icon(
-                onPressed: () {
-                  Navigator.pushNamed(context, RoutesConfig.register);
-                },
-                icon: const CustomIcon(icon: Icons.add_moderator),
-                label: const CustomText(
-                  text: 'Get started for free!',
-                  color: ColorType.gradient,
-                  isItalic: true,
-                ),
-              ),
+        Visibility(
+          visible: user.isLoggedIn,
+          replacement: TextButton.icon(
+            onPressed: () {
+              _isVisited
+                  ? Navigator.pushNamed(context, RoutesConfig.login)
+                  : Navigator.pushNamed(context, RoutesConfig.register);
+            },
+            icon: CustomIcon(
+              icon: _isVisited ? Icons.policy : Icons.add_moderator,
+            ),
+            label: CustomText(
+              text: _isVisited ? 'Login to explore now!' : 'Get started for free!',
+              color: ColorType.gradient,
+              isItalic: true,
+            ),
+          ),
+          child: TextButton.icon(
+            onPressed: () {
+              Navigator.pushNamed(context, RoutesConfig.information);
+            },
+            icon: const CustomIcon(icon: Icons.ads_click_rounded),
+            label: CustomText(
+              text: 'Welcome${_isVisited ? ' back' : ''}, ${user.information.displayName}!',
+              color: ColorType.gradient,
+              isItalic: true,
+            ),
+          ),
+        ),
         Stack(
           clipBehavior: Clip.none,
           children: [
@@ -159,14 +171,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.tertiary,
                 borderRadius: BorderRadius.circular(16),
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).scaffoldBackgroundColor,
-                    Theme.of(context).colorScheme.tertiary,
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,7 +198,36 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             Positioned(
               top: -32,
               right: 16,
-              child: Image.asset('assets/images/Onboarding.png', height: 100),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (_count < 6) {
+                      _count++;
+                    } else {
+                      _count = 0;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Theme.of(context).colorScheme.tertiary,
+                          content: const CustomText(
+                            text: 'Are you sure to clear local storage?',
+                            color: ColorType.paragraph,
+                            type: TextType.description,
+                          ),
+                          duration: const Duration(seconds: 3),
+                          action: SnackBarAction(
+                            textColor: Theme.of(context).colorScheme.primary,
+                            label: 'Clear',
+                            onPressed: () {
+                              _localStorage.delete('isVisited');
+                            },
+                          ),
+                        ),
+                      );
+                    }
+                  });
+                },
+                child: Image.asset('assets/images/Onboarding.png', height: 100),
+              ),
             ),
           ],
         ),
@@ -208,14 +241,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.tertiary,
         borderRadius: BorderRadius.circular(16),
-        gradient: LinearGradient(
-          colors: [
-            Theme.of(context).colorScheme.tertiary,
-            Theme.of(context).scaffoldBackgroundColor,
-          ],
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-        ),
       ),
       child: TabBar(
         controller: _tabController,

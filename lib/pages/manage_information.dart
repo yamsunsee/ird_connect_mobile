@@ -36,7 +36,7 @@ class _ManageInformationState extends State<ManageInformation> {
               const SizedBox(height: 8),
               ListTile(
                 leading: const Icon(Icons.perm_contact_cal),
-                title: Text('${user.information.firstName} ${user.information.lastName}'),
+                title: Text(user.information.fullName),
                 subtitle: const Text('Full Name'),
                 // trailing: const Icon(Icons.more_vert),
                 horizontalTitleGap: -8,

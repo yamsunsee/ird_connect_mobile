@@ -16,33 +16,28 @@ class AppCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          // color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.tertiary,
           borderRadius: BorderRadius.circular(16),
-          gradient: LinearGradient(
-            colors: [
-              Theme.of(context).scaffoldBackgroundColor,
-              Theme.of(context).colorScheme.tertiary,
-            ],
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-          ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/${item.image}',
-              height: 48,
-            ),
-            const SizedBox(height: 8),
-            CustomText(
-              customSize: 8,
-              text: item.title,
-              align: TextAlign.center,
-              color: ColorType.secondary,
-              customWeight: FontWeight.bold,
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/${item.image}',
+                height: 48,
+              ),
+              const SizedBox(height: 8),
+              CustomText(
+                customSize: 8,
+                text: item.title,
+                align: TextAlign.center,
+                color: ColorType.secondary,
+                customWeight: FontWeight.bold,
+              ),
+            ],
+          ),
         ),
       ),
     );

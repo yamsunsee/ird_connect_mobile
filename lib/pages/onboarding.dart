@@ -40,7 +40,7 @@ class _OnboardingState extends State<Onboarding> {
               onDotClicked: (index) {
                 _controller.animateToPage(
                   index,
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 300),
                   curve: Curves.easeOut,
                 );
               },
@@ -91,7 +91,7 @@ class _OnboardingState extends State<Onboarding> {
                 _isLastPage
                     ? Navigator.pop(context)
                     : _controller.nextPage(
-                        duration: const Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 300),
                         curve: Curves.easeOut,
                       );
               },
@@ -103,7 +103,9 @@ class _OnboardingState extends State<Onboarding> {
           //   child: Positioned(
           //     bottom: 20,
           //     child: TextButton(
-          //       onPressed: () {},
+          //       onPressed: () {
+          //         _localStorage.put('isVisited', true);
+          //       },
           //       child: const CustomText(
           //         text: 'Do not show again',
           //         color: ColorType.paragraph,

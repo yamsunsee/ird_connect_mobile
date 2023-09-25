@@ -394,8 +394,7 @@ class _DashboardState extends State<Dashboard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${scoreBoard.userInformation.firstName} ${scoreBoard.userInformation.lastName}'
-                                  .toUpperCase(),
+                              scoreBoard.userInformation.fullName,
                               style: StylesConfig.getTextStyleWithColor(context, 'h5', 'primary'),
                             ),
                             Row(
@@ -470,13 +469,13 @@ class _DashboardState extends State<Dashboard> {
                   CircleAvatar(
                     backgroundColor: StylesConfig.getColor(context, 'primary'),
                     child: Text(
-                      '${scoreBoard.userInformation.firstName[0]}${scoreBoard.userInformation.lastName[0]}',
+                      scoreBoard.userInformation.shortName,
                       style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
               ),
-              title: Text('${scoreBoard.userInformation.firstName} ${scoreBoard.userInformation.lastName}'),
+              title: Text(scoreBoard.userInformation.fullName),
               subtitle: Text(scoreBoard.userInformation.email),
               trailing: Chip(
                 shape: RoundedRectangleBorder(
